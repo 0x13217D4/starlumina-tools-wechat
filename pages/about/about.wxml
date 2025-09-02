@@ -1,0 +1,31 @@
+<view class="container">
+<view class="info-list">
+    <view class="app-header">
+      <image class="app-logo" src="/images/logo.jpg"></image>
+      <text class="app-name">星芒集盒</text>
+    </view>
+    <view class="info-item">
+      <text class="label">版本号</text>
+      <text class="value">1.0.2</text>
+    </view>
+    
+    <view class="info-item">
+      <text class="label">开发者</text>
+      <text class="value">胡黄成霖</text>
+    </view>
+    
+    <view class="info-item" bindtap="navigateToPrivacy">
+      <text class="label">隐私政策</text>
+      <text class="value">查看详情</text>
+    </view>
+    
+    <view class="info-item" bindtap="contactUs">
+      <text class="label">联系我们</text>
+      <text class="value">查看详情</text>
+    </view>
+    <view class="footer">
+      <text class="copyright-text">Copyright © {{year}} 星芒集盒 版权所有</text>
+      <text class="footer-text">蜀ICP备2024095899号-4X</text>
+    </view>
+  </view>
+</view>

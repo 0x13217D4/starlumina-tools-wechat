@@ -1,0 +1,90 @@
+page {
+  background-color: #f7f7f7;
+  height: 100vh;
+}
+.container {
+  padding: 30rpx;
+  padding-top: 60rpx;  /* 增加顶部内边距 */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 30rpx;
+  width: calc(100% - 60rpx);
+  margin-left: 30rpx;
+  margin-top: 20rpx;  /* 增加顶部外边距 */
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  border: 1rpx solid #f0f0f0;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 16rpx;
+  margin-right: 30rpx;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.nickname {
+  font-size: 36rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.user-meta {
+  display: flex;
+}
+
+.user-meta text {
+  font-size: 28rpx;
+  color: #999;
+  margin-right: 20rpx;
+}
+
+.function-list {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 0 30rpx;
+  width: calc(100% - 60rpx);
+  margin-left: 30rpx;
+  box-sizing: border-box;
+}
+
+.function-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: relative;
+}
+
+.function-item:last-child {
+  border-bottom: none;
+}
+
+.function-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.function-item text {
+  font-size: 32rpx;
+  color: #333;
+  flex: 1;
+}
+
+.arrow {
+  width: 32rpx;
+  height: 32rpx;
+}

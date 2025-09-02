@@ -1,0 +1,13 @@
+<view class="container" 
+      bindtouchstart="handleTouchStart"
+      bindtouchmove="handleTouchMove"
+      bindtouchend="handleTouchEnd"
+      bindtouchcancel="handleTouchEnd">
+  <view class="counter-container">
+    <text>当前触控点: {{currentPoints}}</text>
+    <text>最大触控点: {{maxPoints}}</text>
+  </view>
+  <view wx:for="{{touchPoints}}" wx:key="id" class="touch-point" style="left:{{item.x}}px; top:{{item.y}}px">
+    {{index + 1}}
+  </view>
+</view>

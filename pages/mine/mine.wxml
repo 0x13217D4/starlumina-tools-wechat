@@ -1,0 +1,23 @@
+  <!-- 用户信息区域 -->
+  <view class="user-info">
+    <image class="avatar" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" mode="aspectFill"></image>
+    <view class="user-details">
+      <text class="nickname">{{userInfo.nickName || '微信用户'}}</text>
+      <view class="user-meta">
+        <text>{{genderText[userInfo.gender] || '未设置'}}</text>
+        <text>{{userInfo.birthday || '未设置'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="function-list">
+    <view class="function-item" bindtap="editProfile">
+      <text>🪄修改个人信息</text>
+    </view>
+  </view>
+
+  <view class="function-list">
+    <view class="function-item" bindtap="aboutApp">
+      <text>ℹ️关于此小程序</text>
+    </view>
+  </view>

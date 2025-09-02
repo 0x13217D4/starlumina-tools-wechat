@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/tools/tools",
+    "pages/about/about",
+    "pages/mine/mine", 
+    "pages/mine/edit/edit",
+    "pages/deviceinfo/deviceinfo",
+    "pages/id-verify/id-verify",
+    "pages/barcode/barcode",
+    "pages/qrcode/qrcode",
+    "pages/scan/scan",
+    "pages/screentest/screentest",
+    "pages/multitouch/multitouch",
+    "pages/random/random",
+    "pages/converter/converter",
+    "pages/unit-converter/unit-converter",
+    "pages/mbti/mbti",
+    "pages/psychology-test/psychology-test",
+    "pages/psychology-test/bdi/bdi",
+    "pages/psychology-test/sas/sas",
+    "pages/psychology-test/scl90/scl90",
+    "pages/psychology-test/sds/sds"
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/tools/tools",
+        "text": "工具",
+        "iconPath": "images/tools.png",
+        "selectedIconPath": "images/tools_active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine_active.png"
+      }
+    ],
+    "color": "#666",
+    "selectedColor": "#07C160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "position": "bottom"
+  },
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "星芒集盒",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于获取设备位置状态"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

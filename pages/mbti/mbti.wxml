@@ -1,0 +1,46 @@
+<view class="container">
+  <!-- 测试进度 -->
+  <view class="progress">
+    <text>问题 {{currentQuestion + 1}}/{{questions.length}}</text>
+  </view>
+  
+  <!-- 当前问题 -->
+  <view class="question" wx:if="{{!result}}">
+    <text>{{questions[currentQuestion].text}}</text>
+  </view>
+  
+  <!-- 选项列表 -->
+  <view class="options" wx:if="{{!result}}">
+    <block wx:for="{{questions[currentQuestion].options}}" wx:key="id">
+      <button bindtap="selectOption" data-index="{{index}}">{{item.text}}</button>
+    </block>
+  </view>
+  
+  <!-- 测试结果 -->
+  <view class="result" wx:if="{{result}}">
+    <view class="result-header">
+      <text class="result-title">你的MBTI类型是: {{result.type}}</text>
+    </view>
+    
+    <view class="dimensions">
+      <view class="dimension">
+        <text>外向(E) vs 内向(I): {{result.type[0]}}</text>
+      </view>
+      <view class="dimension">
+        <text>实感(S) vs 直觉(N): {{result.type[1]}}</text>
+      </view>
+      <view class="dimension">
+        <text>思考(T) vs 情感(F): {{result.type[2]}}</text>
+      </view>
+      <view class="dimension">
+        <text>判断(J) vs 感知(P): {{result.type[3]}}</text>
+      </view>
+    </view>
+    
+    <view class="description">
+      <text>{{result.description}}</text>
+    </view>
+    
+    <button class="restart-btn" bindtap="restartTest">重新测试</button>
+  </view>
+</view>

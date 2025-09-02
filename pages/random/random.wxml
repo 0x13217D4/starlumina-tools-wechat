@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="control-panel">
+    <view class="input-group">
+      <text>最小值:</text>
+      <input type="number" placeholder="输入最小值" value="{{minValue}}" bindinput="onMinChange"/>
+    </view>
+    <view class="input-group">
+      <text>最大值:</text>
+      <input type="number" placeholder="输入最大值" value="{{maxValue}}" bindinput="onMaxChange"/>
+    </view>
+    <button bindtap="generateRandom">生成随机数</button>
+  </view>
+  <view class="result-area">
+    <text class="error" wx:if="{{error}}">{{error}}</text>
+    <text class="result" wx:elif="{{result !== null}}">{{result}}</text>
+    <text class="hint" wx:else>点击按钮生成随机数</text>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+<view 
+  class="container" 
+  style="background-color:{{currentColor}};height:100vh" 
+  bindtap="changeColor"
+>
+</view>

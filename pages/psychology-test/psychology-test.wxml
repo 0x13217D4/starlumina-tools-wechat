@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="header">
+    <text>请选择您要进行的心理测评量表</text>
+  </view>
+  
+  <view class="scale-list">
+    <block wx:for="{{scales}}" wx:key="id">
+      <view class="scale-item" bindtap="navigateToScale" data-id="{{item.id}}">
+        <text class="scale-name">{{item.name}}</text>
+        <text class="scale-desc">{{item.description}}</text>
+        <text class="scale-count">共{{item.questionsCount}}题</text>
+      </view>
+    </block>
+  </view>
+</view>

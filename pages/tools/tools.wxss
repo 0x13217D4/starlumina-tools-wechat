@@ -1,0 +1,39 @@
+.container {
+  padding: 20rpx;
+}
+
+.category-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 40rpx 20rpx 20rpx;
+  color: #333;
+}
+
+.tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: -10rpx;
+}
+
+.tool-card {
+  width: 200rpx;
+  height: 100rpx;
+  margin: 10rpx;
+  padding: 10rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 24rpx;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.tool-card:active {
+  transform: scale(0.96);
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+}

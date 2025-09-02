@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="input-group">
+    <picker mode="selector" range="{{baseOptions}}" range-key="label" value="{{fromBaseIndex}}" bindchange="onFromBaseChange">
+      <view class="picker">从 {{baseOptions[fromBaseIndex].label}} 进制</view>
+    </picker>
+    <input type="text" placeholder="输入数值" value="{{inputValue}}" bindinput="onInputChange"/>
+  </view>
+
+  <view class="input-group">
+    <picker mode="selector" range="{{baseOptions}}" range-key="label" value="{{toBaseIndex}}" bindchange="onToBaseChange">
+      <view class="picker">转换为 {{baseOptions[toBaseIndex].label}} 进制</view>
+    </picker>
+    <input type="text" placeholder="结果" value="{{result}}" disabled/>
+  </view>
+
+  <button bindtap="convert">转换</button>
+
+  <view class="error" wx:if="{{error}}">{{error}}</view>
+</view>

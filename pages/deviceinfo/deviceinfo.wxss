@@ -1,0 +1,76 @@
+/* 设备信息页面样式 */
+
+/* 页面容器 */
+.container {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* 信息卡片样式 */
+.info-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  width: calc(100% - 40rpx);
+  margin: 0 auto;
+}
+
+/* 卡片标题样式 */
+.info-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 24rpx;
+  text-align: center;
+  position: relative;
+  padding-bottom: 16rpx;
+}
+
+.info-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80rpx;
+  height: 4rpx;
+  background-color: #07C160;
+}
+
+/* 信息项容器 */
+.info-item {
+  display: flex;
+  margin-bottom: 20rpx;
+  align-items: center;
+}
+
+/* 可点击权限项样式 */
+.info-item.clickable {
+  cursor: pointer;
+}
+
+.info-item.clickable .info-value {
+  color: #07C160;
+  text-decoration: underline;
+}
+
+.info-item.clickable:active {
+  opacity: 0.7;
+}
+
+/* 信息标签样式 */
+.info-label {
+  font-size: 28rpx;
+  color: #666;
+  width: 200rpx;
+}
+
+/* 信息值样式 */
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}

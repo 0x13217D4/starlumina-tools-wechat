@@ -1,0 +1,80 @@
+<!-- 设备信息页面 - 主容器 -->
+<view class="container">
+  
+  <!-- 1. 基本信息卡片 -->
+  <view class="info-card">
+    <view class="info-title">基本信息</view>
+    <view 
+      class="info-item" 
+      wx:for="{{basicInfo}}" 
+      wx:for-item="value" 
+      wx:for-index="key" 
+      wx:key="key"
+    >
+      <view class="info-label">{{displayInfo[key]}}：</view>
+      <view class="info-value">{{value}}</view>
+    </view>
+  </view>
+
+  <!-- 2. 屏幕信息卡片 -->
+  <view class="info-card">
+    <view class="info-title">屏幕信息</view>
+    <view 
+      class="info-item" 
+      wx:for="{{screenInfo}}" 
+      wx:for-item="value" 
+      wx:for-index="key" 
+      wx:key="key"
+    >
+      <view class="info-label">{{displayInfo[key]}}：</view>
+      <view class="info-value">{{value}}</view>
+    </view>
+  </view>
+
+  <!-- 3. 系统设置卡片 -->
+  <view class="info-card">
+    <view class="info-title">系统设置</view>
+    <view 
+      class="info-item" 
+      wx:for="{{systemInfo}}" 
+      wx:for-item="value" 
+      wx:for-index="key" 
+      wx:key="key"
+    >
+      <view class="info-label">{{displayInfo[key]}}：</view>
+      <view class="info-value">{{value}}</view>
+    </view>
+  </view>
+
+  <!-- 4. 权限状态卡片 -->
+  <view class="info-card">
+    <view class="info-title">权限状态</view>
+    <view 
+      class="info-item {{value === '未请求' ? 'clickable' : ''}}" 
+      wx:for="{{authInfo}}" 
+      wx:for-item="value" 
+      wx:for-index="key" 
+      wx:key="key"
+      bindtap="onAuthItemTap"
+      data-key="{{key}}"
+    >
+      <view class="info-label">{{displayInfo[key]}}：</view>
+      <view class="info-value">{{value}}</view>
+    </view>
+  </view>
+
+  <!-- 5. 设备功能卡片 -->
+  <view class="info-card">
+    <view class="info-title">设备功能</view>
+    <view 
+      class="info-item" 
+      wx:for="{{featureInfo}}" 
+      wx:for-item="value" 
+      wx:for-index="key" 
+      wx:key="key"
+    >
+      <view class="info-label">{{displayInfo[key]}}：</view>
+      <view class="info-value">{{value}}</view>
+    </view>
+  </view>
+</view>

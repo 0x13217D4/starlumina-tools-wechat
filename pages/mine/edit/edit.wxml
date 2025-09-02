@@ -1,0 +1,45 @@
+<view class="container">
+  <!-- 统一卡片 -->
+  <view class="form-card">
+    <!-- 头像 -->
+    <view class="form-item">
+      <text class="label">头像</text>
+      <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{userInfo.avatarUrl || defaultAvatarUrl}}" mode="aspectFill"></image>
+      </button>
+    </view>
+
+    <!-- 昵称 -->
+    <view class="form-item">
+      <text class="label">昵称</text>
+      <input type="nickname" class="input" placeholder="请输入昵称" value="{{userInfo.nickName}}" bindinput="onNicknameChange"/>
+    </view>
+
+    <!-- 性别 -->
+    <view class="form-item">
+      <text class="label">性别</text>
+      <picker mode="selector" range="{{genderRange}}" value="{{userInfo.gender}}" bindchange="onGenderChange">
+        <view class="picker">{{genderRange[userInfo.gender]}}</view>
+      </picker>
+    </view>
+
+    <!-- 生日 -->
+    <view class="form-item">
+      <text class="label">生日</text>
+      <picker mode="date" start="1900-01-01" end="{{currentDate}}" value="{{userInfo.birthday}}" bindchange="onBirthdayChange">
+        <view class="picker">{{userInfo.birthday || '请选择生日'}}</view>
+      </picker>
+    </view>
+
+    <!-- 隐私提示 -->
+    <view class="privacy-notice">
+      <text class="notice-icon">🔒</text>
+      <text class="notice-text">您的个人信息仅存储在本地，不会上传至服务器</text>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view class="form-item save-btn-container">
+      <button class="save-btn" bindtap="saveProfile">保存信息</button>
+    </view>
+  </view>
+</view>

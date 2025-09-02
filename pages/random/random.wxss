@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.control-panel {
+  margin-bottom: 30px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.input-group text {
+  width: 80px;
+}
+
+input {
+  border: 1px solid #ddd;
+  padding: 8px;
+  flex: 1;
+}
+
+button {
+  background-color: #07C160;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.result-area {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.error {
+  color: #FF4D4F;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.result {
+  font-size: 24px;
+  color: #07C160;
+}
+
+.hint {
+  color: #999;
+}

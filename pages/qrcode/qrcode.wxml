@@ -1,0 +1,90 @@
+<view class="container">
+  <!-- 主卡片 -->
+  <view class="card">
+    <!-- 模式切换 -->
+    <view class="mode-switch">
+      <view 
+        class="mode-tab {{mode === 'text' ? 'active' : ''}}" 
+        bindtap="switchMode" 
+        data-mode="text"
+      >
+        <text>文本二维码</text>
+      </view>
+      <view 
+        class="mode-tab {{mode === 'wifi' ? 'active' : ''}}" 
+        bindtap="switchMode" 
+        data-mode="wifi"
+      >
+        <text>Wi-Fi二维码</text>
+      </view>
+    </view>
+
+    <!-- 内容区域 -->
+    <view class="card-content">
+      <block wx:if="{{mode === 'text'}}">
+        <textarea 
+          placeholder="请输入二维码内容" 
+          bindinput="onInputChange"
+          value="{{qrText}}"
+          auto-height
+          class="qr-input"
+        ></textarea>
+      </block>
+
+      <block wx:if="{{mode === 'wifi'}}">
+        <view class="wifi-form">
+          <view class="form-item">
+            <text class="label">WIFI名称</text>
+            <input 
+              type="text" 
+              placeholder="输入WIFI名称(SSID)" 
+              bindinput="onWifiInput" 
+              data-field="ssid"
+              value="{{wifiConfig.ssid}}"
+            />
+          </view>
+          <view class="form-item" wx:if="{{wifiConfig.encryption !== 'none'}}">
+            <text class="label">密码</text>
+            <input 
+              type="text" 
+              placeholder="输入WIFI密码" 
+              bindinput="onWifiInput" 
+              data-field="password"
+              value="{{wifiConfig.password}}"
+            />
+          </view>
+          <view class="form-item">
+            <text class="label">加密类型</text>
+            <picker 
+              mode="selector" 
+              range="{{['WPA/WPA2', 'WEP', '无加密']}}" 
+              bindchange="onEncryptionChange"
+            >
+              <view>{{wifiConfig.encryption === 'none' ? '无加密' : wifiConfig.encryption}}</view>
+            </picker>
+          </view>
+        </view>
+      </block>
+      
+      <button 
+        bindtap="handleGenerateQRCode" 
+        class="{{isLoading ? 'loading' : ''}}"
+        disabled="{{isLoading}}"
+        hover-class="button-hover"
+      >
+        {{isLoading ? '' : '生成二维码'}}
+      </button>
+    </view>
+  </view>
+  
+  <view class="qr-preview" wx:if="{{generatedQRCode}}">
+    <image src="{{generatedQRCode}}" mode="widthFix"></image>
+    <button 
+      bindtap="saveQRCode" 
+      class="{{isSaving ? 'loading' : ''}}"
+      disabled="{{isSaving}}"
+    >
+      {{isSaving ? '' : '保存二维码'}}
+    </button>
+  </view>
+</view>

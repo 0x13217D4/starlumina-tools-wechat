@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="input-area">
+    <textarea id="id-input" placeholder="请输入身份证号码，每行一个" auto-height bindinput="onInput" bindconfirm="onConfirm"></textarea>
+    <view class="button-group">
+      <button bindtap="validateIDs">验证</button>
+      <button bindtap="clearResults" type="default">清空</button>
+    </view>
+  </view>
+
+  <view class="result-container">
+    <block wx:if="{{results && results.length > 0}}">
+      <view class="result-table">
+        <view class="table-header">
+          <view class="header-cell">归属地</view>
+          <view class="header-cell">出生日期</view>
+          <view class="header-cell">性别</view>
+          <view class="header-cell">校验结果</view>
+        </view>
+        <block wx:for="{{results}}" wx:key="id">
+          <view class="table-row">
+            <view class="table-cell">{{item.area || '-'}}</view>
+            <view class="table-cell">{{item.birthday || '-'}}</view>
+            <view class="table-cell">{{item.gender || '-'}}</view>
+            <view class="table-cell {{item.isValid ? 'valid' : 'invalid'}}">
+              {{item.isValid ? '有效' : '无效'}}
+              <view wx:if="{{item.message}}" class="info-text">{{item.message}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    <view wx:if="{{loading}}" class="info-text loading">正在加载行政区划数据...</view>
+    <view wx:if="{{error}}" class="info-text warning">{{error}}</view>
+    
+    <view class="privacy-notice">
+      <view class="notice-icon">🔒</view>
+      <view class="notice-text">温馨提示：该小程序所有应用都允许在设备本地处理数据，不会上传至服务器，请放心使用</view>
+    </view>
+  </view>
+</view>

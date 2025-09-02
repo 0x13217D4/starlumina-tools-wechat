@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="scan-card">
+      <view class="result-card">
+        <text class="result-title">扫描结果</text>
+        <text class="result-content">{{result}}</text>
+      </view>
+  </view>
+  
+  <button bindtap="startScan" class="scan-btn" disabled="{{isScanning}}">
+    {{isScanning ? '扫描中...' : '开始扫描'}}
+  </button>
+</view>
