@@ -21,5 +21,6 @@
 1.前往[微信小程序官网](https://mp.weixin.qq.com/wxamp/index/index)注册小程序，完成基础准备工作  
 2.下载[微信小程序开发软件](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)，完成代码下载及导入  
 3.进入小程序后台，左侧导航栏点击“管理”--“开发管理”，右侧移动到“服务器域名”一栏，在“request合法域名”中新增链接“https://test.ustc.edu.cn”  
+### 若需使用此项目代码，请用邮件联系作者：huhuangchenglin@petalmail.com
 ### 扫描下方二维码使用小程序
 <img src="https://vip.123pan.cn/1832150722/yk6baz03t0l000d7w33fgukp7a5hjwtfDIYwDqeyDdUvDpxPAdDxDF==.jpg" alt="星芒集盒-微信小程序" width="300" height="300">
