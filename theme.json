@@ -1,0 +1,34 @@
+{
+  "light": {
+    "navBgColor": "#ffffff",
+    "navTxtStyle": "black",
+    "bgColor": "#ffffff",
+    "bgTxtStyle": "light",
+    "bgColorTop": "#eeeeee",
+    "bgColorBottom": "#efefef",
+    "tabFontColor": "#666666",
+    "tabSelectedColor": "#07C160",
+    "tabBgColor": "#ffffff",
+    "tabBorderStyle": "black",
+    "iconPath1": "images/tools.png",
+    "selectedIconPath1": "images/tools_active.png",
+    "iconPath2": "images/mine.png",
+    "selectedIconPath2": "images/mine_active.png"
+  },
+  "dark": {
+    "navBgColor": "#1a1a1a",
+    "navTxtStyle": "white",
+    "bgColor": "#1f1f1f",
+    "bgTxtStyle": "dark",
+    "bgColorTop": "#191919",
+    "bgColorBottom": "#1f1f1f",
+    "tabFontColor": "#999999",
+    "tabSelectedColor": "#09e765",
+    "tabBgColor": "#1a1a1a",
+    "tabBorderStyle": "white",
+    "iconPath1": "images/tools.png",
+    "selectedIconPath1": "images/tools_active.png",
+    "iconPath2": "images/mine.png",
+    "selectedIconPath2": "images/mine_active.png"
+  }
+}

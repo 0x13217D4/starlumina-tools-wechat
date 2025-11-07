@@ -18,10 +18,10 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "compileWorklet": true,
+    "compileWorklet": false,
     "uglifyFileName": true,
     "uploadWithSourceMap": true,
-    "packNpmManually": false,
+    "packNpmManually": true,
     "minifyWXSS": true,
     "minifyWXML": true,
     "localPlugins": false,
@@ -37,5 +37,7 @@
     "tabSize": 2
   },
   "appid": "wxaea3370f46279e80",
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {
+    "wxext94b1b46f6603361": "3.9.2"
+  }
 }

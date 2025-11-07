@@ -1,4 +1,6 @@
 {
+  "darkmode": true,
+  "themeLocation": "theme.json",
   "pages": [
     "pages/tools/tools",
     "pages/about/about",
@@ -14,44 +16,64 @@
     "pages/random/random",
     "pages/converter/converter",
     "pages/unit-converter/unit-converter",
+    "pages/calculator/calculator",
     "pages/mbti/mbti",
     "pages/psychology-test/psychology-test",
     "pages/psychology-test/bdi/bdi",
     "pages/psychology-test/sas/sas",
     "pages/psychology-test/scl90/scl90",
-    "pages/psychology-test/sds/sds"
+    "pages/psychology-test/sds/sds",
+    "pages/reaction-test/reaction-test",
+    "pages/time-screen/time-screen",
+    "pages/image-compress/image-compress",
+    "pages/24point/24point",
+    "pages/Sensor/Sensor",
+    "pages/compass/compass"
   ],
   "tabBar": {
     "list": [
       {
         "pagePath": "pages/tools/tools",
         "text": "工具",
-        "iconPath": "images/tools.png",
-        "selectedIconPath": "images/tools_active.png"
+        "iconPath": "@iconPath1",
+        "selectedIconPath": "@selectedIconPath1"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "images/mine.png",
-        "selectedIconPath": "images/mine_active.png"
+        "iconPath": "@iconPath2",
+        "selectedIconPath": "@selectedIconPath2"
       }
     ],
-    "color": "#666",
-    "selectedColor": "#07C160",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "color": "@tabFontColor",
+    "selectedColor": "@tabSelectedColor",
+    "backgroundColor": "@tabBgColor",
+    "borderStyle": "@tabBorderStyle",
     "position": "bottom"
   },
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "@navTxtStyle",
     "navigationBarTitleText": "星芒集盒",
-    "navigationBarBackgroundColor": "#ffffff"
+    "navigationBarBackgroundColor": "@navBgColor",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundColorBottom": "@bgColorBottom"
   },
   "style": "v2",
   "componentFramework": "glass-easel",
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于获取设备位置状态"
+    },
+    "scope.accelerometer": {
+      "desc": "需要使用加速度计来获取设备运动数据"
+    },
+    "scope.compass": {
+      "desc": "需要使用指南针来获取设备方向信息"
+    },
+    "scope.gyroscope": {
+      "desc": "需要使用陀螺仪来获取设备旋转数据"
     }
   },
   "sitemapLocation": "sitemap.json",
