@@ -19,6 +19,6 @@
     "ignoreDevUnusedFiles": true,
     "useApiHostProcess": true
   },
-  "libVersion": "3.9.2",
+  "libVersion": "3.11.1",
   "condition": {}
 }
