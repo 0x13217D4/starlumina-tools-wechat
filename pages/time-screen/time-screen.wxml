@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="time-display" style="{{isLandscape ? 'margin-top:0;' : ''}}">
+    <text class="time-text">{{currentTime}}</text>
+  </view>
+</view>

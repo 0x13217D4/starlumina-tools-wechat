@@ -150,7 +150,6 @@ Page({
 
   onInput(e) {
     const value = e.detail.value;
-    console.log('输入值:', value);
     this.setData({ 
       inputValue: value 
     });
@@ -158,7 +157,6 @@ Page({
 
   onConfirm() {
     const value = this.data.inputValue.trim();
-    console.log('确认输入:', value);
     if (!value) {
       wx.showToast({ title: '请输入身份证号', icon: 'none' });
       return;

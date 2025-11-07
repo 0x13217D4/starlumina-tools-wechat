@@ -53,21 +53,17 @@ Page({
       });
       return;
     }
-    
-    // 判断是否为整数模式
-    const isIntegerMode = Number.isInteger(min) && Number.isInteger(max);
-    let randomNum;
-    
-    if (isIntegerMode) {
-      randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    } else {
-      // 浮点数模式，保留2位小数
-      randomNum = (Math.random() * (max - min) + min).toFixed(2);
-    }
-    
+    // 直接生成随机数
+    const result = Math.floor(Math.random() * (max - min + 1)) + min;
     this.setData({
-      result: randomNum,
-      error: null
+      result: result
+    });
+    
+    // 发送数据到Worker
+    worker.postMessage({
+      min: min,
+      max: max,
+      count: 1
     });
   },
   

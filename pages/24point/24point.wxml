@@ -1,0 +1,48 @@
+<view class="container">
+  <view class="header">
+    <text class="title">24点游戏</text>
+    <text class="score">得分: {{score}}</text>
+  </view>
+
+  <view class="game-area">
+    <view class="cards">
+      <view class="card" wx:for="{{cards}}" wx:key="index">
+        <text class="card-number">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="expression">
+      <text class="expression-text">{{expression}}</text>
+    </view>
+
+    <view class="buttons">
+      <view class="number-buttons">
+        <button class="btn number" wx:for="{{cards}}" wx:key="index" 
+                data-value="{{item}}" data-index="{{index}}" bindtap="onNumberTap">{{item}}</button>
+      </view>
+      
+      <view class="operator-buttons">
+        <button class="btn operator" data-value="+" bindtap="onOperatorTap">+</button>
+        <button class="btn operator" data-value="-" bindtap="onOperatorTap">-</button>
+        <button class="btn operator" data-value="*" bindtap="onOperatorTap">×</button>
+        <button class="btn operator" data-value="/" bindtap="onOperatorTap">÷</button>
+      </view>
+      
+      <view class="bracket-buttons">
+        <button class="btn bracket" data-value="(" bindtap="onBracketTap">(</button>
+        <button class="btn bracket" data-value=")" bindtap="onBracketTap">)</button>
+      </view>
+
+      <view class="control-buttons">
+        <button class="btn control" bindtap="onClear">清除</button>
+        <button class="btn control" bindtap="onDelete">删除</button>
+        <button class="btn submit" bindtap="onSubmit">提交</button>
+        <button class="btn new-game" bindtap="onNewGame">新游戏</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="message" wx:if="{{message}}">
+    <text class="message-text">{{message}}</text>
+  </view>
+</view>

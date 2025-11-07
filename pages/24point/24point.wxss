@@ -1,0 +1,179 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.score {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.game-area {
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.card {
+  width: 120rpx;
+  height: 160rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.2);
+}
+
+.card-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.expression {
+  min-height: 80rpx;
+  background-color: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #e9ecef;
+}
+
+.expression-text {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.number-buttons, .operator-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15rpx;
+  flex-wrap: wrap;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15rpx;
+  flex-wrap: wrap;
+}
+
+.btn {
+  min-width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.number {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  box-shadow: 0 4rpx 15rpx rgba(79, 172, 254, 0.3);
+}
+
+.operator {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+  box-shadow: 0 4rpx 15rpx rgba(250, 112, 154, 0.3);
+}
+
+.control {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+  box-shadow: 0 4rpx 15rpx rgba(168, 237, 234, 0.3);
+}
+
+.submit {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+  color: white;
+  box-shadow: 0 4rpx 15rpx rgba(86, 171, 47, 0.3);
+  min-width: 120rpx;
+}
+
+.new-game {
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+  color: white;
+  box-shadow: 0 4rpx 15rpx rgba(255, 107, 107, 0.3);
+  min-width: 120rpx;
+}
+
+.bracket {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.3);
+  min-width: 80rpx;
+}
+
+.bracket-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15rpx;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.message {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  text-align: center;
+}
+
+.message-text {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.message.success .message-text {
+  color: #28a745;
+}
+
+.message.error .message-text {
+  color: #dc3545;
+}

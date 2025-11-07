@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 控制按钮 -->
+  <view class="control-panel">
+    <button 
+      class="control-btn {{isListening ? 'stop-btn' : 'start-btn'}}" 
+      bindtap="{{isListening ? 'stopCompassListening' : 'startCompassListening'}}"
+    >
+      {{isListening ? '停止指南针' : '启动指南针'}}
+    </button>
+    <button class="control-btn calibrate-btn" bindtap="calibrateCompass" disabled="{{isCalibrating}}">
+      {{isCalibrating ? '校准中...' : '校准'}}
+    </button>
+  </view>
+
+  <!-- 指南针主体 -->
+  <view class="compass-container">
+    <view class="compass-outer">
+      <view class="compass-inner" style="transform: rotate(-{{displayDirection}}deg)">
+        <!-- 方向标记 -->
+        <view class="direction-mark n-mark">N</view>
+        <view class="direction-mark e-mark">E</view>
+        <view class="direction-mark s-mark">S</view>
+        <view class="direction-mark w-mark">W</view>
+        
+        <!-- 指针 -->
+        <view class="compass-needle">
+          <view class="needle-north"></view>
+          <view class="needle-south"></view>
+        </view>
+      </view>
+      
+      <!-- 中心点 -->
+      <view class="compass-center"></view>
+    </view>
+  </view>
+
+  <!-- 方向信息 -->
+  <view class="direction-info">
+    <view class="direction-display">
+      <view class="direction-degree">{{directionFormatted}}</view>
+      <view class="direction-text">{{directionText}}</view>
+      <view class="accuracy-info">
+        <view class="accuracy-label">精度</view>
+        <view class="accuracy-value {{accuracyLevel >= 3 ? 'high' : accuracyLevel >= 2 ? 'medium' : 'low'}}">{{accuracy}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 方向说明 -->
+  <view class="direction-guide">
+    <view class="guide-title">方向说明</view>
+    <view class="guide-grid">
+      <view class="guide-item">
+        <view class="guide-direction">北 (N)</view>
+        <view class="guide-range">0° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">东北 (NE)</view>
+        <view class="guide-range">45° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">东 (E)</view>
+        <view class="guide-range">90° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">东南 (SE)</view>
+        <view class="guide-range">135° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">南 (S)</view>
+        <view class="guide-range">180° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">西南 (SW)</view>
+        <view class="guide-range">225° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">西 (W)</view>
+        <view class="guide-range">270° ± 22.5°</view>
+      </view>
+      <view class="guide-item">
+        <view class="guide-direction">西北 (NW)</view>
+        <view class="guide-range">315° ± 22.5°</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 状态指示器 -->
+  <view class="status-indicator {{isListening ? 'active' : 'inactive'}}">
+    <view class="status-dot"></view>
+    <text class="status-text">{{isListening ? '监听中' : '已停止'}}</text>
+  </view>
+</view>

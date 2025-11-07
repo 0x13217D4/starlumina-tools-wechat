@@ -1,0 +1,78 @@
+<view class="container">
+  <view class="header">
+    <text class="title">图片压缩工具</text>
+    <text class="subtitle">轻松压缩图片，节省存储空间</text>
+  </view>
+
+  <view class="upload-area" bindtap="chooseImage">
+    <image wx:if="{{imagePath}}" src="{{imagePath}}" mode="aspectFit" class="preview-image"></image>
+    <view wx:else class="upload-hint">
+      <icon type="upload" size="64" color="#999"></icon>
+      <text>点击上传图片</text>
+    </view>
+  </view>
+
+  <view class="info-section">
+    <view class="info-item">
+      <text class="info-label">原始大小:</text>
+      <text class="info-value">{{originalSize}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">分辨率:</text>
+      <text class="info-value">{{dimensions}}</text>
+    </view>
+  </view>
+
+  <view class="controls">
+    <view class="control-group">
+      <text class="control-label">压缩质量: {{quality}}%</text>
+      <slider min="10" max="100" step="5" value="{{quality}}" bindchange="setQuality" activeColor="#4a90e2"></slider>
+    </view>
+
+    <view class="control-group">
+      <text class="control-label">输出格式:</text>
+      <radio-group bindchange="setFormat">
+        <label class="radio-label">
+          <radio value="auto" checked="{{format === 'auto'}}" color="#4a90e2"/> 自动
+        </label>
+        <label class="radio-label">
+          <radio value="jpg" checked="{{format === 'jpg'}}" color="#4a90e2"/> JPEG
+        </label>
+        <label class="radio-label">
+          <radio value="png" checked="{{format === 'png'}}" color="#4a90e2"/> PNG
+        </label>
+        <label class="radio-label">
+          <radio value="webp" checked="{{format === 'webp'}}" color="#4a90e2"/> WEBP
+        </label>
+      </radio-group>
+    </view>
+
+    <view class="control-group">
+      <checkbox-group bindchange="toggleResize">
+        <label class="checkbox-label">
+          <checkbox value="{{true}}" color="#4a90e2"/> 限制最大宽度(1920px)
+        </label>
+      </checkbox-group>
+    </view>
+
+    <view class="progress-container" wx:if="{{isCompressing}}">
+      <progress percent="{{progress}}" show-info stroke-width="6" activeColor="#4a90e2"/>
+      <button type="warn" bindtap="cancelCompress" class="action-btn">取消压缩</button>
+    </view>
+    <view wx:else class="action-buttons">
+      <button type="primary" bindtap="compressImage" class="action-btn">压缩图片</button>
+      <button type="primary" bindtap="downloadImage" class="action-btn">下载图片</button>
+    </view>
+  </view>
+
+  <view wx:if="{{compressedPath}}" class="result-section">
+    <view class="info-item">
+      <text class="info-label">压缩后大小:</text>
+      <text class="info-value">{{compressedSize}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">节省空间:</text>
+      <text class="info-value">{{saving}}</text>
+    </view>
+  </view>
+</view>

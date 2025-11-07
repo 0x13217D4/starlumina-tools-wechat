@@ -1,0 +1,56 @@
+<view class="container">
+  <!-- 控制按钮 -->
+  <view class="control-panel">
+    <button 
+      class="control-btn {{isListening ? 'stop-btn' : 'start-btn'}}" 
+      bindtap="{{isListening ? 'stopSensorListening' : 'startSensorListening'}}"
+    >
+      {{isListening ? '停止监听' : '开始监听'}}
+    </button>
+    <button class="control-btn reset-btn" bindtap="resetData">重置数据</button>
+  </view>
+
+  <!-- 三维坐标轴 -->
+  <view class="axis-container">
+    <view class="axis-title">加速度计</view>
+    <view class="axis-display">
+      <view class="axis-item x-axis">
+        <view class="axis-label">X轴</view>
+        <view class="axis-value">{{xFormatted}}</view>
+      </view>
+      <view class="axis-item y-axis">
+        <view class="axis-label">Y轴</view>
+        <view class="axis-value">{{yFormatted}}</view>
+      </view>
+      <view class="axis-item z-axis">
+        <view class="axis-label">Z轴</view>
+        <view class="axis-value">{{zFormatted}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 陀螺仪 -->
+  <view class="axis-container">
+    <view class="axis-title">陀螺仪</view>
+    <view class="axis-display">
+      <view class="axis-item x-axis">
+        <view class="axis-label">X轴</view>
+        <view class="axis-value">{{gxFormatted}}</view>
+      </view>
+      <view class="axis-item y-axis">
+        <view class="axis-label">Y轴</view>
+        <view class="axis-value">{{gyFormatted}}</view>
+      </view>
+      <view class="axis-item z-axis">
+        <view class="axis-label">Z轴</view>
+        <view class="axis-value">{{gzFormatted}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 状态指示器 -->
+  <view class="status-indicator {{isListening ? 'active' : 'inactive'}}">
+    <view class="status-dot"></view>
+    <text class="status-text">{{isListening ? '监听中' : '已停止'}}</text>
+  </view>
+</view>

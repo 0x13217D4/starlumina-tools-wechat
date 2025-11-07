@@ -1,19 +1,31 @@
 <view class="container">
-  <view class="input-group">
-    <picker mode="selector" range="{{baseOptions}}" range-key="label" value="{{fromBaseIndex}}" bindchange="onFromBaseChange">
-      <view class="picker">从 {{baseOptions[fromBaseIndex].label}} 进制</view>
-    </picker>
-    <input type="text" placeholder="输入数值" value="{{inputValue}}" bindinput="onInputChange"/>
+  <view class="card">
+    <view class="input-group">
+      <picker mode="selector" range="{{baseOptions}}" range-key="label" value="{{fromBaseIndex}}" bindchange="onFromBaseChange">
+        <view class="picker">从 {{baseOptions[fromBaseIndex].label}} 进制</view>
+      </picker>
+      <input type="text" placeholder="输入数值" value="{{inputValue}}" bindinput="onInputChange"/>
+    </view>
+
+    <view class="input-group">
+      <picker mode="selector" range="{{baseOptions}}" range-key="label" value="{{toBaseIndex}}" bindchange="onToBaseChange">
+        <view class="picker">转换为 {{baseOptions[toBaseIndex].label}} 进制</view>
+      </picker>
+      <input type="text" placeholder="结果" value="{{result}}" disabled/>
+    </view>
+
+    <button bindtap="convert">转换</button>
+
+    <view class="error" wx:if="{{error}}">{{error}}</view>
   </view>
 
-  <view class="input-group">
-    <picker mode="selector" range="{{baseOptions}}" range-key="label" value="{{toBaseIndex}}" bindchange="onToBaseChange">
-      <view class="picker">转换为 {{baseOptions[toBaseIndex].label}} 进制</view>
-    </picker>
-    <input type="text" placeholder="结果" value="{{result}}" disabled/>
+  <view class="history" wx:if="{{history.length > 0}}">
+    <view class="history-title">最近转换记录</view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{history}}" wx:key="time">
+        <text>{{item.input}} ({{item.fromBase}}进制) → {{item.result}} ({{item.toBase}}进制)</text>
+        <text class="time">{{item.time}}</text>
+      </view>
+    </view>
   </view>
-
-  <button bindtap="convert">转换</button>
-
-  <view class="error" wx:if="{{error}}">{{error}}</view>
 </view>

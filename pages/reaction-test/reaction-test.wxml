@@ -1,0 +1,15 @@
+<view class="container" bindtap="handleScreenTap">
+  <view wx:if="{{!isTesting}}" class="start-screen" style="background-color: {{screenColor}}">
+    <text class="instruction-text">开始测试</text>
+  </view>
+
+  <view wx:if="{{isTesting}}" class="test-screen" style="background-color: {{screenColor}}">
+    <text class="instruction-text">{{instructionText}}</text>
+  </view>
+
+  <view wx:if="{{reactionTime > 0}}" class="result">
+    <text>本次反应时间：{{reactionTime}}毫秒</text>
+    <text wx:if="{{testCount > 1}}" style="margin-top: 10px;">最佳成绩：{{bestTime}}毫秒</text>
+    <text style="margin-top: 10px;">测试次数：{{testCount}}</text>
+  </view>
+</view>

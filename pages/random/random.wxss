@@ -1,53 +1,114 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .control-panel {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 .input-group {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .input-group text {
   width: 80px;
+  font-size: 16px;
+  color: #3c4858;
+  font-weight: 500;
 }
 
 input {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #e0e6ed;
+  padding: 12px 16px;
   flex: 1;
+  height: 48px;
+  font-size: 16px;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #3c4858;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-color: #5e72e4;
+  box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.1);
 }
 
 button {
-  background-color: #07C160;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 4px;
+  padding: 16px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .result-area {
-  margin-top: 20px;
+  margin-top: 24px;
   text-align: center;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 .error {
-  color: #FF4D4F;
+  color: #ff4757;
   font-size: 14px;
-  margin-bottom: 10px;
+  padding: 12px;
+  background: #ffecee;
+  border-radius: 8px;
+  width: 100%;
 }
 
 .result {
-  font-size: 24px;
-  color: #07C160;
+  font-size: 36px;
+  font-weight: bold;
+  color: #5e72e4;
+  animation: fadeIn 0.5s ease;
 }
 
 .hint {
-  color: #999;
+  color: #8492a6;
+  font-size: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
