@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="header">
     <text>请选择您要进行的心理测评量表</text>
   </view>

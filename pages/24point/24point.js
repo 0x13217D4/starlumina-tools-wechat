@@ -5,11 +5,51 @@ Page({
     score: 0,
     message: '',
     usedCards: [],
-    currentNumbers: []
+    currentNumbers: [],
+    themeClass: ''
   },
 
   onLoad: function() {
+    this.loadThemeMode();
     this.startNewGame();
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    
+    // 获取实际的主题 - 优先使用应用级别的当前主题
+    const app = getApp()
+    let actualTheme = app.globalData.theme || 'light'
+    
+    // 如果应用级别没有主题信息，则按传统方式计算
+    if (!actualTheme || actualTheme === 'light') {
+      if (themeMode === 'system') {
+        const systemSetting = wx.getSystemSetting()
+        actualTheme = systemSetting.theme || 'light'
+      } else {
+        actualTheme = themeMode
+      }
+    }
+    
+    this.updateThemeClass(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
   },
 
   startNewGame: function() {
@@ -243,10 +283,15 @@ Page({
    * @returns {number} 计算结果
    */
   calculateExpression: function(expr) {
-    // 使用栈来计算表达式
-    const tokens = this.tokenizeExpression(expr);
-    const postfix = this.infixToPostfix(tokens);
-    return this.evaluatePostfix(postfix);
+    try {
+      // 使用栈来计算表达式
+      const tokens = this.tokenizeExpression(expr);
+      const postfix = this.infixToPostfix(tokens);
+      return this.evaluatePostfix(postfix);
+    } catch (error) {
+      console.log('表达式计算过程中出错:', error);
+      throw error;
+    }
   },
 
   /**
@@ -361,7 +406,12 @@ Page({
             if (b === 0) {
               throw new Error('除零错误');
             }
-            stack.push(a / b);
+            const divisionResult = a / b;
+            // 检查除法结果是否为有效数字
+            if (!isFinite(divisionResult)) {
+              throw new Error('除零错误');
+            }
+            stack.push(divisionResult);
             break;
         }
       }
@@ -371,7 +421,13 @@ Page({
       throw new Error('表达式无效');
     }
     
-    return stack[0];
+    const finalResult = stack[0];
+    // 检查最终结果是否为有效数字
+    if (!isFinite(finalResult)) {
+      throw new Error('计算结果无效');
+    }
+    
+    return finalResult;
   },
 
   onNumberTap: function(e) {
@@ -384,8 +440,20 @@ Page({
       return;
     }
 
+    const expression = this.data.expression;
+    
+    // 检查表达式是否为空或最后一个字符是否允许直接跟数字
+    if (expression !== '') {
+      const lastChar = expression[expression.length - 1];
+      // 如果最后一个字符是数字或右括号，则不能直接跟另一个数字
+      if ((lastChar >= '0' && lastChar <= '9') || lastChar === ')') {
+        this.showMessage('数字之间必须使用运算符！', 'error');
+        return;
+      }
+    }
+
     // 添加到表达式
-    const newExpression = this.data.expression + value;
+    const newExpression = expression + value;
     this.setData({
       expression: newExpression,
       usedCards: [...this.data.usedCards, index],
@@ -502,7 +570,14 @@ Page({
     // 计算表达式结果
     try {
       const result = this.evaluateExpression(expression);
-      if (Math.abs(result - 24) < 0.0001) {
+      
+      // 使用更宽松的精度比较，考虑不同机型的浮点数精度差异
+      const isCloseTo24 = Math.abs(result - 24) < 0.00001; // 使用更小的容差
+      const isRounded24 = Math.round(result) === 24; // 也检查四舍五入后的结果
+      
+      console.log('计算结果:', result, '是否接近24:', isCloseTo24, '四舍五入后是否为24:', isRounded24);
+      
+      if (isCloseTo24 || isRounded24) {
         this.setData({
           score: this.data.score + 10,
           message: '恭喜！答案正确！+10分'
@@ -514,7 +589,17 @@ Page({
         this.showMessage(`结果是 ${result}，不等于24！`, 'error');
       }
     } catch (error) {
-      this.showMessage('表达式无效！', 'error');
+      console.log('表达式计算错误:', error);
+      // 提供更具体的错误信息
+      let errorMessage = '表达式无效！';
+      if (error.message === '计算错误') {
+        errorMessage = '计算错误，请检查运算！';
+      } else if (error.message === 'Invalid expression') {
+        errorMessage = '表达式格式错误！';
+      } else if (error.message === '除零错误') {
+        errorMessage = '不能除以零！';
+      }
+      this.showMessage(errorMessage, 'error');
     }
   },
 
@@ -573,6 +658,9 @@ Page({
       return false;
     }
     
+    // 去除空格后重新检查
+    expression = expression.replace(/\s+/g, '');
+    
     // 不能以运算符开头
     const firstChar = expression[0];
     if (this.isOperator(firstChar)) {
@@ -605,6 +693,47 @@ Page({
       return false;
     }
 
+    // 检查数字之间是否必须有运算符
+    let lastCharWasDigit = false;
+    let lastCharWasCloseBracket = false;
+    
+    for (let i = 0; i < expression.length; i++) {
+      const char = expression[i];
+      
+      if (char >= '0' && char <= '9') {
+        // 如果当前字符是数字，且前一个字符也是数字，检查是否为多位数
+        if (lastCharWasDigit) {
+          // 检查当前字符和前一个字符是否构成多位数
+          const prevIndex = i - 1;
+          // 如果前面有数字且没有运算符分隔，且不在括号后，则无效（除非是多位数）
+          if (prevIndex >= 0) {
+            const prevChar = expression[prevIndex];
+            // 如果前一个字符也是数字，需要检查是否为合理的多位数
+            if (prevChar >= '0' && prevChar <= '9') {
+              // 允许连续数字构成多位数
+              lastCharWasDigit = true;
+              continue;
+            }
+          }
+        }
+        
+        // 如果当前字符是数字，且前一个字符是右括号，则无效
+        if (lastCharWasCloseBracket) {
+          console.log('数字前缺少运算符，位置:', i);
+          return false;
+        }
+        
+        lastCharWasDigit = true;
+        lastCharWasCloseBracket = false;
+      } else if (char === ')') {
+        lastCharWasDigit = false;
+        lastCharWasCloseBracket = true;
+      } else {
+        lastCharWasDigit = false;
+        lastCharWasCloseBracket = false;
+      }
+    }
+
     console.log('表达式验证通过');
     return true;
   },
@@ -620,5 +749,20 @@ Page({
         message: ''
       });
     }, 3000);
+  },
+
+  onShareAppMessage: function() {
+    return {
+      title: '24点游戏',
+      path: '/pages/24point/24point',
+      imageUrl: '/images/tools.png'
+    }
+  },
+  
+  onShareTimeline: function() {
+    return {
+      title: '星芒集盒 - 24点游戏',
+      imageUrl: '/images/tools.png'
+    }
   }
 });

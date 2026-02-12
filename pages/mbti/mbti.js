@@ -17,10 +17,12 @@ Page({
     questions: [],
     currentQuestion: 0,
     answers: [],
-    result: null
+    result: null,
+    themeClass: ''
   },
   
   onLoad: function() {
+    this.loadThemeMode();
     // 初始化问题和选项
     this.setData({
       questions: [
@@ -372,6 +374,51 @@ Page({
       answers: [],
       result: null
     });
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    let actualTheme
+    if (themeMode === 'system') {
+      const systemSetting = wx.getSystemSetting()
+      actualTheme = systemSetting.theme || 'light'
+    } else {
+      actualTheme = themeMode
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme)
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      })
+    }
   }
 });
 

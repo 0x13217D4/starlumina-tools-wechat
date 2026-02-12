@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+.container.dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
 .card {
   background: white;
   border-radius: 12px;
@@ -18,6 +22,11 @@
   max-width: 600px;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+.container.dark .card {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card:active {
@@ -39,6 +48,12 @@
   transition: all 0.2s ease;
 }
 
+.container.dark .picker {
+  background: #3a3a3a;
+  border-color: #555;
+  color: #e0e0e0;
+}
+
 .picker:active {
   background: #f1f5f9;
 }
@@ -57,9 +72,20 @@ input {
   transition: all 0.2s ease;
 }
 
+.container.dark input {
+  background: #3a3a3a;
+  border-color: #555;
+  color: #e0e0e0;
+}
+
 input:focus {
   border-color: #5e72e4;
   box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.2);
+}
+
+.container.dark input:focus {
+  border-color: #09e765;
+  box-shadow: 0 0 0 2px rgba(9, 231, 101, 0.2);
 }
 
 button {
@@ -74,6 +100,11 @@ button {
   font-weight: 500;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+}
+
+.container.dark button {
+  background: linear-gradient(135deg, #09e765 0%, #07C160 100%);
+  color: #000;
 }
 
 button:active {
@@ -91,11 +122,21 @@ button:active {
   border-radius: 6px;
 }
 
+.container.dark .error {
+  background: #3a2a2a;
+  color: #ff6b6b;
+}
+
 .history {
   background: white;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.container.dark .history {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .history-title {
@@ -105,6 +146,10 @@ button:active {
   color: #3c4858;
   display: flex;
   align-items: center;
+}
+
+.container.dark .history-title {
+  color: #e0e0e0;
 }
 
 .history-title::before {
@@ -140,8 +185,40 @@ button:active {
   color: #3c4858;
 }
 
+.container.dark .history-item text {
+  color: #e0e0e0;
+}
+
 .history-item .time {
   font-size: 13px;
   color: #8492a6;
   margin-top: 6px;
+}
+
+.clear-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.clear-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.container.dark .clear-btn {
+  background: linear-gradient(135deg, #ff4757 0%, #ff6b6b 100%);
+  color: white;
+}
+
+.container.dark .history-item .time {
+  color: #aaa;
 }

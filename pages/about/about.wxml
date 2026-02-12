@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
 <view class="info-list">
     <view class="app-header">
       <image class="app-logo" src="/images/logo.jpg"></image>
@@ -6,7 +6,7 @@
     </view>
     <view class="info-item">
       <text class="label">版本号</text>
-      <text class="value">1.0.5</text>
+      <text class="value">2.1.1</text>
     </view>
     
     <view class="info-item">

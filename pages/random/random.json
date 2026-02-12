@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "随机数生成",
-  "navigationBarTextStyle": "black",
   "navigationStyle": "default",
   "usingComponents": {}
 }

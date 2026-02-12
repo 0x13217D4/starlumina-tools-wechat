@@ -7,6 +7,10 @@
   background-color: #f8f9fa;
 }
 
+.container.dark {
+  background-color: #1a1a1a;
+}
+
 .scan-card {
   width: 100%;
   background: white;
@@ -15,6 +19,11 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   text-align: center;
   margin-bottom: 30px;
+}
+
+.container.dark .scan-card {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .scan-icon {
@@ -55,6 +64,10 @@
   padding: 15px;
 }
 
+.container.dark .result-card {
+  background-color: #3a3a3a;
+}
+
 .result-title {
   display: block;
   font-size: 16px;
@@ -63,22 +76,88 @@
   margin-bottom: 10px;
 }
 
+.container.dark .result-title {
+  color: #e0e0e0;
+}
+
 .result-content {
   display: block;
   font-size: 14px;
   color: #666;
   word-break: break-all;
+  margin-bottom: 15px;
+}
+
+.container.dark .result-content {
+  color: #ccc;
+}
+
+.copy-btn {
+  width: 100%;
+  background-color: #1890ff;
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 8px 0;
+  margin-top: 10px;
+}
+
+.container.dark .copy-btn {
+  background-color: #1890ff;
+  color: white;
+}
+
+.copy-btn:hover {
+  background-color: #40a9ff;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 80%;
 }
 
 .scan-btn {
-  width: 80%;
+  width: 100%;
   background-color: #07C160;
   color: white;
   border-radius: 8px;
   font-size: 16px;
-  margin-top: 20px;
+  padding: 12px 0;
+}
+
+.container.dark .scan-btn {
+  background-color: #09e765;
+  color: #000;
 }
 
 .scan-btn[disabled] {
+  background-color: #ccc;
+}
+
+.camera-btn {
+  background-color: #07C160;
+}
+
+.container.dark .camera-btn {
+  background-color: #09e765;
+  color: #000;
+}
+
+.album-btn {
+  background-color: #1890ff;
+}
+
+.container.dark .album-btn {
+  background-color: #1890ff;
+  color: white;
+}
+
+.camera-btn[disabled] {
+  background-color: #ccc;
+}
+
+.album-btn[disabled] {
   background-color: #ccc;
 }

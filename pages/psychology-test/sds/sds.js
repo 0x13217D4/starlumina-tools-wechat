@@ -1,19 +1,6 @@
 Page({
-  onShareAppMessage() {
-    return {
-      title: 'SDS抑郁自评量表 - 星芒集盒',
-      path: '/pages/psychology-test/sds/sds',
-      imageUrl: '/images/logo.jpg'
-    }
-  },
-  onShareTimeline() {
-    return {
-      title: 'SDS抑郁自评量表 - 星芒集盒',
-      path: '/pages/psychology-test/sds/sds',
-      imageUrl: '/images/logo.jpg'
-    }
-  },
   data: {
+    themeClass: '',
     questions: [
       {
         id: 1,
@@ -221,6 +208,74 @@ Page({
     result: null
   },
 
+  onLoad: function() {
+    // 启用返回确认提示
+    wx.enableAlertBeforeUnload({
+      message: '测试尚未完成，确定要退出吗？'
+    });
+    this.loadThemeMode();
+  },
+
+  onShow() {
+    this.loadThemeMode();
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme);
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system';
+    let actualTheme;
+    if (themeMode === 'system') {
+      const systemSetting = wx.getSystemSetting();
+      actualTheme = systemSetting.theme || 'light';
+    } else {
+      actualTheme = themeMode;
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme);
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme);
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = '';
+    if (theme === 'dark') {
+      themeClass = 'dark';
+    } else {
+      themeClass = '';
+    }
+    this.setData({ themeClass });
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      });
+    }
+  },
+
+  onShareAppMessage() {
+    return {
+      title: 'SDS抑郁自评量表 - 星芒集盒',
+      path: '/pages/psychology-test/sds/sds',
+      imageUrl: '/images/logo.jpg'
+    }
+  },
+  onShareTimeline() {
+    return {
+      title: 'SDS抑郁自评量表 - 星芒集盒',
+      path: '/pages/psychology-test/sds/sds',
+      imageUrl: '/images/logo.jpg'
+    }
+  },
+
   selectOption: function (e) {
     const { index } = e.currentTarget.dataset;
     const { questions, currentQuestion, answers } = this.data;
@@ -292,6 +347,9 @@ Page({
         ...result
       }
     });
+    
+    // 测试完成后，关闭返回确认提示
+    wx.disableAlertBeforeUnload();
   },
 
   restartTest: function () {
@@ -302,7 +360,3 @@ Page({
     });
   }
 });
-
-
-
-

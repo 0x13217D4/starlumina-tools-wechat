@@ -1,17 +1,17 @@
 .container {
   padding: 20rpx;
-  background-color: #f7f7f7;
+  background-color: var(--page-bg);
   min-height: 100vh;
 }
 
 .info-list {
-  background-color: #fff;
+  background-color: var(--card-bg);
   border-radius: 16rpx;
   padding: 0 30rpx;
   margin: 0 20rpx 40rpx;
   width: calc(100% - 40rpx);
   box-sizing: border-box;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4rpx 12rpx var(--shadow-color);
 }
 
 .app-header {
@@ -31,7 +31,7 @@
 .app-name {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .logo {
@@ -50,7 +50,7 @@
   display: flex;
   align-items: center;
   padding: 30rpx 0;
-  border-bottom: 1rpx solid #f0f0f0;
+  border-bottom: 1rpx solid var(--border-color);
   position: relative;
 }
 
@@ -60,13 +60,13 @@
 
 .label {
   font-size: 32rpx;
-  color: #333;
+  color: var(--text-primary);
   flex: 1;
 }
 
 .value {
   font-size: 32rpx;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .arrow {
@@ -82,13 +82,13 @@
 
 .footer-text {
   font-size: 24rpx;
-  color: #999;
+  color: var(--text-tertiary);
   display: block;
   margin-bottom: 8rpx;
 }
 
 .copyright-text {
   font-size: 24rpx;
-  color: #999;
+  color: var(--text-tertiary);
   display: block;
 }

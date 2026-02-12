@@ -18,6 +18,7 @@ Page({
       {
         id: 'sas',
         name: '焦虑自评量表(SAS)',
+        themeClass: '',
         description: '用于评估焦虑症状的严重程度',
         questionsCount: 20
       },
@@ -53,6 +54,51 @@ Page({
         title: '量表暂未开放',
         icon: 'none'
       });
+    }
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    let actualTheme
+    if (themeMode === 'system') {
+      const systemSetting = wx.getSystemSetting()
+      actualTheme = systemSetting.theme || 'light'
+    } else {
+      actualTheme = themeMode
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme)
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      })
     }
   }
 });

@@ -1,30 +1,41 @@
 .container {
-  padding: 20rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+  padding: 15px;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.container.dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
 /* 控制面板 */
 .control-panel {
   display: flex;
-  gap: 20rpx;
-  margin-bottom: 30rpx;
+  gap: 12px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .control-btn {
   flex: 1;
-  height: 80rpx;
-  border-radius: 12rpx;
-  font-size: 28rpx;
-  font-weight: bold;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   color: white;
 }
 
 .start-btn {
-  background: linear-gradient(135deg, #07C160, #00d4aa);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .stop-btn {
@@ -32,74 +43,102 @@
 }
 
 .calibrate-btn {
-  background: linear-gradient(135deg, #FFA726, #FFB74D);
+  background: linear-gradient(135deg, #4A90E2, #6BA5E8);
 }
 
 .control-btn:active {
-  transform: scale(0.98);
-  opacity: 0.8;
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 指南针容器 */
 .compass-container {
-  flex: 1;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40rpx;
+  gap: 24px;
+}
+
+.container.dark .compass-container {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .compass-outer {
-  width: 500rpx;
-  height: 500rpx;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
   background: linear-gradient(135deg, #ffffff, #f0f0f0);
-  box-shadow: 0 20rpx 40rpx rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border: 8rpx solid #333;
+  border: 4px solid #333;
+  transition: all 0.3s ease;
+}
+
+.container.dark .compass-outer {
+  background: linear-gradient(135deg, #3a3a3a, #2d2d2d);
+  border-color: #e0e0e0;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 .compass-inner {
-  width: 460rpx;
-  height: 460rpx;
+  width: 256px;
+  height: 256px;
   border-radius: 50%;
   position: relative;
   background: radial-gradient(circle, #ffffff 0%, #f8f8f8 100%);
 }
 
+.container.dark .compass-inner {
+  background: radial-gradient(circle, #3a3a3a 0%, #2d2d2d 100%);
+}
+
 /* 方向标记 */
 .direction-mark {
   position: absolute;
-  font-size: 32rpx;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
 }
 
+.container.dark .direction-mark {
+  color: #e0e0e0;
+}
+
 .n-mark {
-  top: 20rpx;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
   color: #FF0000;
-  font-size: 40rpx;
+  font-size: 24px;
 }
 
 .e-mark {
-  right: 20rpx;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .s-mark {
-  bottom: 20rpx;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .w-mark {
-  left: 20rpx;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -111,16 +150,17 @@
   height: 100%;
   top: 0;
   left: 0;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .needle-north {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 20rpx solid transparent;
-  border-right: 20rpx solid transparent;
-  border-bottom: 180rpx solid #FF0000;
-  top: 50rpx;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 100px solid #FF0000;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -129,193 +169,61 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 20rpx solid transparent;
-  border-right: 20rpx solid transparent;
-  border-top: 180rpx solid #333;
-  bottom: 50rpx;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 100px solid #333;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }
 
+.container.dark .needle-south {
+  border-top-color: #e0e0e0;
+}
+
 .compass-center {
   position: absolute;
-  width: 40rpx;
-  height: 40rpx;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: #333;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* 方向信息 */
-.direction-info {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16rpx;
-  padding: 30rpx;
-  margin-bottom: 20rpx;
-  width:85%;
-  backdrop-filter: blur(10rpx);
+.container.dark .compass-center {
+  background: #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .direction-display {
   text-align: center;
-  margin-bottom: 20rpx;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .direction-degree {
-  font-size: 72rpx;
+  font-size: 48px;
   font-weight: bold;
-  color: #333;
+  color: #3c4858;
   font-family: 'Courier New', monospace;
 }
 
+.container.dark .direction-degree {
+  color: #e0e0e0;
+}
+
 .direction-text {
-  font-size: 36rpx;
-  color: #666;
-  margin-top: 10rpx;
+  font-size: 24px;
+  color: #606266;
+  margin-top: 8px;
+  font-weight: 600;
 }
 
-.accuracy-info {
-  margin-top: 15rpx;
-  padding: 15rpx;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 8rpx;
-}
-
-.accuracy-label {
-  font-size: 24rpx;
-  color: #666;
-  margin-bottom: 5rpx;
-}
-
-.accuracy-value {
-  font-size: 28rpx;
-  font-weight: bold;
-}
-
-.accuracy-value.high {
-  color: #4CAF50;
-}
-
-.accuracy-value.medium {
-  color: #FF9800;
-}
-
-.accuracy-value.low {
-  color: #F44336;
-}
-
-
-/* 方向说明 */
-.direction-guide {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16rpx;
-  padding: 30rpx;
-  width:85%;
-  backdrop-filter: blur(10rpx);
-}
-
-.guide-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20rpx;
-  text-align: center;
-}
-
-.guide-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15rpx;
-}
-
-.guide-item {
-  text-align: center;
-  padding: 15rpx 10rpx;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 8rpx;
-  border: 1rpx solid #e0e0e0;
-}
-
-.guide-direction {
-  font-size: 24rpx;
-  color: #333;
-  font-weight: bold;
-  margin-bottom: 5rpx;
-}
-
-.guide-range {
-  font-size: 20rpx;
-  color: #666;
-}
-
-/* 状态指示器 */
-.status-indicator {
-  position: fixed;
-  top: 60rpx;
-  right: 20rpx;
-  display: flex;
-  align-items: center;
-  gap: 10rpx;
-  padding: 12rpx 20rpx;
-  border-radius: 20rpx;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10rpx);
-}
-
-.status-indicator.active {
-  background: rgba(76, 175, 80, 0.9);
-}
-
-.status-indicator.inactive {
-  background: rgba(158, 158, 158, 0.9);
-}
-
-.status-dot {
-  width: 16rpx;
-  height: 16rpx;
-  border-radius: 50%;
-  background: #ccc;
-  animation: pulse 2s infinite;
-}
-
-.status-indicator.active .status-dot {
-  background: #4CAF50;
-}
-
-.status-indicator.inactive .status-dot {
-  background: #9e9e9e;
-  animation: none;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.status-text {
-  font-size: 24rpx;
-  color: #333;
-  font-weight: bold;
-}
-
-.status-indicator.active .status-text {
-  color: white;
-}
-
-.status-indicator.inactive .status-text {
-  color: white;
+.container.dark .direction-text {
+  color: #ccc;
 }

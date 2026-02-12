@@ -1,48 +1,53 @@
-<view class="container">
-  <view class="header">
-    <text class="title">24点游戏</text>
-    <text class="score">得分: {{score}}</text>
-  </view>
+<view class="container {{themeClass}}">
+  <view class="card">
+    <view class="game-header">
+      <text class="game-title">24点游戏</text>
+      <text class="score">得分: {{score}}</text>
+    </view>
 
-  <view class="game-area">
-    <view class="cards">
-      <view class="card" wx:for="{{cards}}" wx:key="index">
+    <view class="cards-display">
+      <view class="card-item" wx:for="{{cards}}" wx:key="index">
         <text class="card-number">{{item}}</text>
       </view>
     </view>
 
-    <view class="expression">
-      <text class="expression-text">{{expression}}</text>
+    <view class="expression-display">
+      <text class="expression-text">{{expression || '请输入表达式'}}</text>
     </view>
 
-    <view class="buttons">
+    <view class="input-group">
+      <text class="group-title">数字</text>
       <view class="number-buttons">
         <button class="btn number" wx:for="{{cards}}" wx:key="index" 
                 data-value="{{item}}" data-index="{{index}}" bindtap="onNumberTap">{{item}}</button>
       </view>
-      
+    </view>
+
+    <view class="input-group">
+      <text class="group-title">运算符</text>
       <view class="operator-buttons">
         <button class="btn operator" data-value="+" bindtap="onOperatorTap">+</button>
         <button class="btn operator" data-value="-" bindtap="onOperatorTap">-</button>
         <button class="btn operator" data-value="*" bindtap="onOperatorTap">×</button>
         <button class="btn operator" data-value="/" bindtap="onOperatorTap">÷</button>
       </view>
-      
+    </view>
+
+    <view class="input-group">
+      <text class="group-title">括号</text>
       <view class="bracket-buttons">
         <button class="btn bracket" data-value="(" bindtap="onBracketTap">(</button>
         <button class="btn bracket" data-value=")" bindtap="onBracketTap">)</button>
       </view>
-
-      <view class="control-buttons">
-        <button class="btn control" bindtap="onClear">清除</button>
-        <button class="btn control" bindtap="onDelete">删除</button>
-        <button class="btn submit" bindtap="onSubmit">提交</button>
-        <button class="btn new-game" bindtap="onNewGame">新游戏</button>
-      </view>
     </view>
-  </view>
 
-  <view class="message" wx:if="{{message}}">
-    <text class="message-text">{{message}}</text>
+    <view class="button-group">
+      <button bindtap="onClear">清除</button>
+      <button bindtap="onDelete">删除</button>
+      <button bindtap="onSubmit" class="submit-btn">提交</button>
+      <button bindtap="onNewGame" class="new-game-btn">新游戏</button>
+    </view>
+
+    <view class="error" wx:if="{{message}}">{{message}}</view>
   </view>
 </view>

@@ -1,179 +1,311 @@
 .container {
-  padding: 20rpx;
-  background-color: #f5f5f5;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20rpx;
-  background-color: #fff;
-  border-radius: 10rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-}
-
-.title {
-  font-size: 40rpx;
-  font-weight: bold;
-  color: #333;
-}
-
-.score {
-  font-size: 32rpx;
-  color: #666;
-}
-
-.game-area {
-  background-color: #fff;
-  border-radius: 10rpx;
-  padding: 30rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-}
-
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 20rpx;
-  margin-bottom: 30rpx;
+.container.dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
 .card {
-  width: 120rpx;
-  height: 160rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10rpx;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.container.dark .card {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card:active {
+  transform: translateY(2px);
+}
+
+.game-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.2);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f4f8;
 }
 
-.card-number {
-  font-size: 48rpx;
-  font-weight: bold;
-  color: white;
-  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+.container.dark .game-header {
+  border-bottom: 1px solid #444;
 }
 
-.expression {
-  min-height: 80rpx;
-  background-color: #f8f9fa;
-  border-radius: 8rpx;
-  padding: 20rpx;
-  margin-bottom: 30rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2rpx solid #e9ecef;
+.game-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3c4858;
 }
 
-.expression-text {
-  font-size: 36rpx;
-  color: #333;
+.container.dark .game-title {
+  color: #e0e0e0;
+}
+
+.score {
+  font-size: 16px;
+  color: #5e72e4;
   font-weight: 500;
 }
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
+.container.dark .score {
+  color: #09e765;
 }
 
-.number-buttons, .operator-buttons {
+.cards-display {
   display: flex;
   justify-content: center;
-  gap: 15rpx;
-  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.control-buttons {
+.card-item {
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 15rpx;
-  flex-wrap: wrap;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: all 0.2s ease;
 }
 
-.btn {
-  min-width: 80rpx;
-  height: 80rpx;
-  border-radius: 8rpx;
-  font-size: 32rpx;
+.card-item:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+.card-number {
+  font-size: 24px;
   font-weight: bold;
-  border: none;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.expression-display {
+  min-height: 60px;
+  background: #f8fafc;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
 }
 
-.number {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
-  box-shadow: 0 4rpx 15rpx rgba(79, 172, 254, 0.3);
+.container.dark .expression-display {
+  background: #3a3a3a;
+  border-color: #555;
 }
 
-.operator {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  color: white;
-  box-shadow: 0 4rpx 15rpx rgba(250, 112, 154, 0.3);
+.expression-display:focus-within {
+  border-color: #5e72e4;
+  box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.1);
 }
 
-.control {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #333;
-  box-shadow: 0 4rpx 15rpx rgba(168, 237, 234, 0.3);
-}
-
-.submit {
-  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
-  color: white;
-  box-shadow: 0 4rpx 15rpx rgba(86, 171, 47, 0.3);
-  min-width: 120rpx;
-}
-
-.new-game {
-  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-  color: white;
-  box-shadow: 0 4rpx 15rpx rgba(255, 107, 107, 0.3);
-  min-width: 120rpx;
-}
-
-.bracket {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.3);
-  min-width: 80rpx;
-}
-
-.bracket-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15rpx;
-}
-
-.btn:active {
-  transform: scale(0.95);
-}
-
-.message {
-  margin-top: 30rpx;
-  padding: 20rpx;
-  border-radius: 8rpx;
+.expression-text {
+  font-size: 18px;
+  color: #3c4858;
+  font-weight: 500;
   text-align: center;
 }
 
-.message-text {
-  font-size: 32rpx;
+.container.dark .expression-text {
+  color: #e0e0e0;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.group-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5e72e4;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.container.dark .group-title {
+  color: #09e765;
+}
+
+.number-buttons, .operator-buttons, .bracket-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.number-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.operator-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.bracket-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.btn {
+  min-width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn.number {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(79, 172, 254, 0.3);
+}
+
+.btn.operator {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(250, 112, 154, 0.3);
+}
+
+.btn.bracket {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.button-group button {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.message.success .message-text {
-  color: #28a745;
+.button-group button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.message.error .message-text {
-  color: #dc3545;
+.button-group button.submit-btn {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+}
+
+.button-group button.new-game-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+}
+
+.error {
+  color: #ff4757;
+  margin-top: 12px;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+  background: #ffecee;
+  border-radius: 6px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.container.dark .error {
+  background: #3a2a2a;
+  color: #ff6b6b;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .cards-display {
+    gap: 12px;
+  }
+  
+  .card-item {
+    width: 50px;
+    height: 70px;
+  }
+  
+  .card-number {
+    font-size: 20px;
+  }
+  
+  .expression-text {
+    font-size: 16px;
+  }
+  
+  .btn {
+    min-width: 45px;
+    height: 45px;
+    font-size: 14px;
+  }
+  
+  .button-group {
+    flex-wrap: wrap;
+  }
+  
+  .button-group button {
+    flex: 1 1 45%;
+  }
 }

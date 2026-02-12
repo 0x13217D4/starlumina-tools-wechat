@@ -1,12 +1,17 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="scan-card">
       <view class="result-card">
         <text class="result-title">扫描结果</text>
         <text class="result-content">{{result}}</text>
+        <button wx:if="{{result}}" bindtap="copyResult" class="copy-btn">
+          复制结果
+        </button>
       </view>
   </view>
   
-  <button bindtap="startScan" class="scan-btn" disabled="{{isScanning}}">
-    {{isScanning ? '扫描中...' : '开始扫描'}}
-  </button>
+  <view class="button-group">
+    <button bindtap="selectFromAlbum" class="scan-btn camera-btn" disabled="{{isScanning}}">
+      {{isScanning ? '扫描中...' : '相机扫描'}}
+    </button>
+  </view>
 </view>

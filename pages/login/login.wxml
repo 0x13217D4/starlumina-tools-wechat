@@ -1,0 +1,28 @@
+<view class="container {{themeClass}}">
+  <view class="card">
+    <image class="logo" src="/images/logo.jpg" mode="aspectFit"></image>
+    <text class="app-name">星芒集盒</text>
+    <text class="welcome-text">欢迎使用</text>
+    
+    <view class="login-tips">
+      <text>登录后可使用更多功能</text>
+    </view>
+    
+    <button 
+      class="login-btn" 
+      open-type="getUserInfo"
+      bindgetuserinfo="onGetUserInfo"
+      loading="{{loading}}">
+      授权微信登录
+    </button>
+    
+    <view class="privacy-tips">
+      <text>登录即表示同意《用户协议》和《隐私政策》</text>
+    </view>
+  </view>
+  
+  <view class="privacy-notice">
+    <view class="notice-icon">🔒</view>
+    <view class="notice-text">温馨提示：该小程序所有应用都允许在设备本地处理数据，不会上传至服务器，请放心使用</view>
+  </view>
+</view>

@@ -1,15 +1,62 @@
 Page({
-  onShareTimeline: function() {
-    return {
-      title: '星芒集盒 - 随机数生成',
-      imageUrl: '/images/tools.png'
-    }
-  },
   data: {
     minValue: '',
     maxValue: '',
     result: null,
-    error: null
+    error: null,
+    themeClass: ''
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    
+    // 获取实际的主题 - 优先使用应用级别的当前主题
+    const app = getApp()
+    let actualTheme = app.globalData.theme || 'light'
+    
+    // 如果应用级别没有主题信息，则按传统方式计算
+    if (!actualTheme || actualTheme === 'light') {
+      if (themeMode === 'system') {
+        const systemSetting = wx.getSystemSetting()
+        actualTheme = systemSetting.theme || 'light'
+      } else {
+        actualTheme = themeMode
+      }
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme)
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      })
+    }
   },
 
   onMinChange: function(e) {

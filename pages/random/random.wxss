@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+.container.dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
 .control-panel {
   margin-bottom: 32px;
   background: white;
@@ -18,6 +22,11 @@
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+}
+
+.container.dark .control-panel {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .input-group {
@@ -33,6 +42,10 @@
   font-weight: 500;
 }
 
+.container.dark .input-group text {
+  color: #e0e0e0;
+}
+
 input {
   border: 1px solid #e0e6ed;
   padding: 12px 16px;
@@ -45,9 +58,20 @@ input {
   transition: all 0.2s ease;
 }
 
+.container.dark input {
+  background: #3a3a3a;
+  border-color: #555;
+  color: #e0e0e0;
+}
+
 input:focus {
   border-color: #5e72e4;
   box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.1);
+}
+
+.container.dark input:focus {
+  border-color: #09e765;
+  box-shadow: 0 0 0 2px rgba(9, 231, 101, 0.2);
 }
 
 button {
@@ -61,6 +85,11 @@ button {
   font-weight: 500;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+}
+
+.container.dark button {
+  background: linear-gradient(135deg, #09e765 0%, #07C160 100%);
+  color: #000;
 }
 
 button:active {
@@ -87,6 +116,11 @@ button:active {
   box-sizing: border-box;
 }
 
+.container.dark .result-area {
+  background: #2d2d2d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .error {
   color: #ff4757;
   font-size: 14px;
@@ -96,6 +130,11 @@ button:active {
   width: 100%;
 }
 
+.container.dark .error {
+  background: #3a2a2a;
+  color: #ff6b6b;
+}
+
 .result {
   font-size: 36px;
   font-weight: bold;
@@ -103,9 +142,17 @@ button:active {
   animation: fadeIn 0.5s ease;
 }
 
+.container.dark .result {
+  color: #09e765;
+}
+
 .hint {
   color: #8492a6;
   font-size: 16px;
+}
+
+.container.dark .hint {
+  color: #aaa;
 }
 
 @keyframes fadeIn {

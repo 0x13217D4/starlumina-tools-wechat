@@ -1,0 +1,78 @@
+<view class="container {{themeClass}}">
+  <view class="info-section">
+    <view class="section-title">设备信息</view>
+    <view class="info-grid">
+      <view class="info-item">
+        <text class="info-label">品牌</text>
+        <text class="info-value">{{basicInfo.brand}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">型号</text>
+        <text class="info-value">{{basicInfo.model}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">系统</text>
+        <text class="info-value">{{basicInfo.system}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">平台</text>
+        <text class="info-value">{{basicInfo.platform}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="test-section">
+    <view class="section-title">性能测试</view>
+    <button class="test-btn {{testing ? 'testing' : ''}}" bindtap="startPerformanceTest" disabled="{{testing}}">
+      {{testing ? '测试中...' : '开始性能测试'}}
+    </button>
+
+    <view class="progress-container" wx:if="{{testing || progress > 0}}">
+      <view class="progress-text">
+        <text>{{currentTest}}</text>
+        <text class="progress-percent">{{progress}}%</text>
+      </view>
+      <progress percent="{{progress}}" active="{{testing}}" stroke-width="8" activeColor="#1890ff" />
+    </view>
+
+    <view class="overall-score" wx:if="{{performanceScores.overall !== null}}">
+      <view class="score-title">综合性能得分</view>
+      <view class="score-value" style="color: {{levelColor}}">
+        {{performanceScores.overall}}
+      </view>
+      <view class="score-desc" style="color: {{levelColor}}">
+        {{levelDescription}}
+      </view>
+    </view>
+
+      <view class="scores-grid" wx:if="{{performanceScores.cpu !== null}}">
+      <view class="score-item">
+        <text class="score-label">CPU性能</text>
+        <text class="score-number">{{performanceScores.cpu}}</text>
+        <progress percent="{{Math.min(100, performanceScores.cpu / 500)}}" stroke-width="4" activeColor="#1890ff" />
+      </view>
+      <view class="score-item">
+        <text class="score-label">GPU性能</text>
+        <text class="score-number">{{performanceScores.gpu}}</text>
+        <progress percent="{{Math.min(100, performanceScores.gpu / 500)}}" stroke-width="4" activeColor="#faad14" />
+      </view>
+      <view class="score-item">
+        <text class="score-label">内存性能</text>
+        <text class="score-number">{{performanceScores.memory}}</text>
+        <progress percent="{{Math.min(100, performanceScores.memory / 500)}}" stroke-width="4" activeColor="#52c41a" />
+      </view>
+      <view class="score-item">
+        <text class="score-label">存储性能</text>
+        <text class="score-number">{{performanceScores.storage}}</text>
+        <progress percent="{{Math.min(100, performanceScores.storage / 500)}}" stroke-width="4" activeColor="#13c2c2" />
+      </view>
+    </view>
+  </view>
+
+  <view class="note-section">
+    <view class="note-text">
+      <text class="note-icon"></text>
+      <text>测试结果仅供参考，测试分数不代表实际性能体验，分数可能受系统差异、设备状态、环境温度等因素影响。</text>
+    </view>
+  </view>
+</view>
