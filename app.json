@@ -1,10 +1,13 @@
 {
   "darkmode": true,
   "themeLocation": "theme.json",
+  "resizable": true,
   "pages": [
     "pages/tools/tools",
     "pages/about/about",
-    "pages/mine/mine", 
+    "pages/login/login",
+    "pages/settings/settings",
+    "pages/mine/mine",
     "pages/mine/edit/edit",
     "pages/deviceinfo/deviceinfo",
     "pages/id-verify/id-verify",
@@ -16,7 +19,6 @@
     "pages/random/random",
     "pages/converter/converter",
     "pages/unit-converter/unit-converter",
-    "pages/calculator/calculator",
     "pages/mbti/mbti",
     "pages/psychology-test/psychology-test",
     "pages/psychology-test/bdi/bdi",
@@ -26,8 +28,11 @@
     "pages/reaction-test/reaction-test",
     "pages/time-screen/time-screen",
     "pages/image-compress/image-compress",
+    "pages/whiteboard/whiteboard",
+    "pages/speedtest/speedtest",
     "pages/24point/24point",
-    "pages/Sensor/Sensor",
+    "pages/gomoku/gomoku",
+    "pages/sensor/sensor",
     "pages/compass/compass"
   ],
   "tabBar": {
@@ -61,21 +66,11 @@
     "backgroundColorBottom": "@bgColorBottom"
   },
   "style": "v2",
-  "componentFramework": "glass-easel",
+  "componentFramework": "exparser",
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于获取设备位置状态"
-    },
-    "scope.accelerometer": {
-      "desc": "需要使用加速度计来获取设备运动数据"
-    },
-    "scope.compass": {
-      "desc": "需要使用指南针来获取设备方向信息"
-    },
-    "scope.gyroscope": {
-      "desc": "需要使用陀螺仪来获取设备旋转数据"
     }
   },
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "sitemapLocation": "sitemap.json"
 }

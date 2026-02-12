@@ -13,15 +13,11 @@ class DeviceUtils {
     return {
       basicInfo: this._filterData(data, [
         'brand', 'model', 'system', 'version', 
-        'platform', 'SDKVersion', 'ipAddress', 'networkType'
+        'platform', 'SDKVersion', 'ipv4', 'ipv6', 'networkType'
       ]),
       screenInfo: this._filterData(data, [
         'pixelRatio', 'screenWidth', 'screenHeight',
         'windowWidth', 'windowHeight', 'statusBarHeight'
-      ]),
-      authInfo: this._filterData(data, [
-        'albumAuthorized', 'cameraAuthorized',
-        'locationAuthorized', 'microphoneAuthorized'
       ]),
       performanceInfo: this._filterData(data, [
         'benchmarkLevel', 'modelLevel'
@@ -59,7 +55,8 @@ class DeviceUtils {
       'version': '微信版本',
       'platform': '运行平台',
       'SDKVersion': '基础库版本',
-      'ipAddress': 'IP地址',
+      'ipv4': 'IPv4地址',
+      'ipv6': 'IPv6地址',
       'networkType': '网络状态',
       // 屏幕信息
       'pixelRatio': '设备像素比',
@@ -68,12 +65,6 @@ class DeviceUtils {
       'windowWidth': '窗口宽度(px)',
       'windowHeight': '窗口高度(px)',
       'statusBarHeight': '状态栏高度',
-      
-      // 权限状态
-      'albumAuthorized': '相册权限',
-      'cameraAuthorized': '相机权限',
-      'locationAuthorized': '位置权限',
-      'microphoneAuthorized': '麦克风权限',
       
       // 性能信息
       'benchmarkLevel': '设备性能等级',

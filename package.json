@@ -3,10 +3,7 @@
   "version": "1.0.5",
   "description": "实用工具集合小程序",
   "main": "app.js",
-  "dependencies": {
-    "@miniprogram-component-plus/col": "1.0.5",
-    "@miniprogram-component-plus/row": "1.0.5"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

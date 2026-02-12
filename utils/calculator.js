@@ -26,6 +26,7 @@ let op = ''   //操作符
 
 let displayNum = opNum1 //界面上应当显示的数值
 let displayOp = ""  //界面上应当显示的操作符
+let fullExpression = "" //完整的表达式显示
 
 /**
  * 重置程序状态
@@ -107,9 +108,54 @@ function tryAppend(num, code) {
 
 function tryTrunc(num) {
     let str = '' + num
-    if (str.length > 15) {
-        str = str.substr(0, 15)
+    
+    // 处理科学计数法
+    if (str.includes('e')) {
+        const parts = str.split('e')
+        const mantissa = parseFloat(parts[0])
+        const exponent = parseInt(parts[1])
+        
+        // 对于极大或极小的数，保持科学计数法但限制精度
+        if (Math.abs(exponent) > 10) {
+            return mantissa.toExponential(6).substring(0, 15)
+        }
+        
+        // 对于中等大小的科学计数法，转换为普通数字
+        const fullNum = parseFloat(str)
+        if (Math.abs(fullNum) < 1e-10) {
+            return '0'
+        }
+        str = fullNum.toString()
     }
+    
+    // 处理普通数字
+    if (str.length > 15) {
+        // 如果是整数，直接截断
+        if (str.indexOf('.') === -1) {
+            str = str.substr(0, 15)
+        } else {
+            // 如果是小数，保留有效数字
+            const decimalIndex = str.indexOf('.')
+            const integerPart = str.substring(0, decimalIndex)
+            const decimalPart = str.substring(decimalIndex + 1)
+            
+            if (integerPart.length >= 15) {
+                str = integerPart.substr(0, 15)
+            } else {
+                const maxDecimalLength = 15 - integerPart.length - 1
+                str = integerPart + '.' + decimalPart.substr(0, maxDecimalLength)
+            }
+        }
+    }
+    
+    // 移除末尾的零和小数点
+    str = str.replace(/\.?0+$/, '')
+    
+    // 如果结果为空，返回0
+    if (str === '' || str === '-' || str === '.') {
+        return '0'
+    }
+    
     return str
 }
 
@@ -179,14 +225,17 @@ function addOp(code) {
             if (isNumber(code) && !isZero(code)) {
                 curState = STATE.FIRST_UNDOT
                 opNum1 = code
+                fullExpression = code
             } else if (isDot(code)) {
                 curState = STATE.FIRST_DOT
                 opNum1 = '0.'
+                fullExpression = '0.'
             } else if (isOperator(code)) {
                 curState = STATE.SECOND_UNDOT
                 opNum1 = '0'
                 opNum2 = ''
                 op = code
+                fullExpression = '0' + op2Show(code)
             }
             displayNum = opNum1
             displayOp = ''
@@ -196,19 +245,24 @@ function addOp(code) {
             if (isNumber(code)) {
                 if (!isZero(opNum1)) {
                     opNum1 = tryAppend(opNum1, code)
+                    fullExpression = tryAppend(fullExpression, code)
                 } else {
                     opNum1 = code
+                    fullExpression = code
                 }
             } else if (isDot(code)) {
                 curState = STATE.FIRST_DOT
                 opNum1 = opNum1 == '' ? '0' : tryAppend(opNum1, '.')
+                fullExpression = tryAppend(fullExpression, '.')
             } else if (isDelete(code)) {
                 tryDelete()
+                fullExpression = opNum1
             } else if (isOperator(code)) {
                 curState = STATE.SECOND_UNDOT
                 op = code
                 opNum2 = ''
                 displayOp = op
+                fullExpression = opNum1 + op2Show(code)
             }
             displayNum = opNum1
             break
@@ -216,8 +270,10 @@ function addOp(code) {
             displayOp = ''
             if (isNumber(code)) {
                 opNum1 = tryAppend(opNum1, code)
+                fullExpression = tryAppend(fullExpression, code)
             } else if (isDelete(code)) {
                 tryDelete()
+                fullExpression = opNum1
                 if (opNum1.indexOf('.') < 0)
                     curState = STATE.FIRST_UNDOT
             } else if (isOperator(code)) {
@@ -225,6 +281,7 @@ function addOp(code) {
                 op = code
                 opNum2 = ''
                 displayOp = op
+                fullExpression = opNum1 + op2Show(code)
             }
             displayNum = opNum1
             break
@@ -232,16 +289,20 @@ function addOp(code) {
             if (isNumber(code)) {
                 if (!isZero(opNum2)) {
                     opNum2 = tryAppend(opNum2, code)
+                    fullExpression = tryAppend(fullExpression, code)
                 } else {
                     opNum2 = code
+                    fullExpression = fullExpression.slice(0, -1) + code
                 }
                 displayNum = opNum2
             } else if (isDot(code)) {
                 curState = STATE.SECOND_DOT
                 opNum2 = opNum2 == '' ? '0' : tryAppend(opNum2, '.')
+                fullExpression = tryAppend(fullExpression, '.')
                 displayNum = opNum2
             } else if (isDelete(code)) {
                 tryDelete()
+                fullExpression = opNum1 + op2Show(op) + opNum2
                 displayNum = opNum2
             } else if (isOperator(code)) {
                 if (opNum2 != '') {
@@ -251,9 +312,11 @@ function addOp(code) {
                     opNum1 = curResult
                     opNum2 = ''
                     displayNum = curResult
+                    fullExpression = curResult + op2Show(code)
                 }
                 op = code
                 displayOp = op
+                fullExpression = opNum1 + op2Show(code)
             } else if (isEquel(code)) {
                 if (opNum2 != '') {
                     tryCalc()
@@ -261,6 +324,7 @@ function addOp(code) {
                     opNum1 = '0'
                     opNum2 = ''
                     displayNum = curResult
+                    fullExpression = opNum1 + op2Show(op) + opNum2 + '=' + curResult
                 }
                 op = code
                 displayOp = op
@@ -269,9 +333,11 @@ function addOp(code) {
         case STATE.SECOND_DOT:
             if (isNumber(code)) {
                 opNum2 = tryAppend(opNum2, code)
+                fullExpression = tryAppend(fullExpression, code)
                 displayNum = opNum2
             } else if (isDelete(code)) {
                 tryDelete()
+                fullExpression = opNum1 + op2Show(op) + opNum2
                 if (opNum2.indexOf('.') < 0)
                     curState = STATE.SECOND_UNDOT
                 displayNum = opNum2
@@ -283,9 +349,11 @@ function addOp(code) {
                     opNum1 = curResult
                     opNum2 = ''
                     displayNum = curResult
+                    fullExpression = curResult + op2Show(code)
                 }
                 op = code
                 displayOp = op
+                fullExpression = opNum1 + op2Show(code)
             } else if (isEquel(code)) {
                 if (opNum2 != '') {
                     tryCalc()
@@ -293,6 +361,7 @@ function addOp(code) {
                     opNum1 = '0'
                     opNum2 = ''
                     displayNum = curResult
+                    fullExpression = opNum1 + op2Show(op) + opNum2 + '=' + curResult
                 }
                 op = code
                 displayOp = op
@@ -303,6 +372,7 @@ function addOp(code) {
         reset()
         displayNum = opNum1
         displayOp = ''
+        fullExpression = ''
     }
     displayOp = op2Show(displayOp)
 }
@@ -311,6 +381,6 @@ reset()
 
 module.exports = {
     reset, addOp, getVars(){
-        return {curState, curResult, opNum1, opNum2, op, displayNum, displayOp}
+        return {curState, curResult, opNum1, opNum2, op, displayNum, displayOp, fullExpression}
     }
 }
