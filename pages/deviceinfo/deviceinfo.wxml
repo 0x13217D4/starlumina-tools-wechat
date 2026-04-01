@@ -1,5 +1,5 @@
 <!-- 设备信息页面 - 主容器 -->
-<view class="container">
+<view class="container {{themeClass}}">
   
   <!-- 1. 基本信息卡片 -->
   <view class="info-card">
@@ -12,12 +12,12 @@
       wx:key="key"
     >
       <view class="info-label">{{displayInfo[key]}}：</view>
-      <view class="info-value">{{value}}</view>
+      <view class="info-value {{value === '获取中...' ? 'loading' : ''}}">{{value}}</view>
     </view>
   </view>
 
-  <!-- 2. 屏幕信息卡片 -->
-  <view class="info-card">
+  <!-- 2. 屏幕信息卡片（分享模式下隐藏） -->
+  <view class="info-card" wx:if="{{!isShared}}">
     <view class="info-title">屏幕信息</view>
     <view 
       class="info-item" 
@@ -27,29 +27,12 @@
       wx:key="key"
     >
       <view class="info-label">{{displayInfo[key]}}：</view>
-      <view class="info-value">{{value}}</view>
+      <view class="info-value {{value === '获取中...' ? 'loading' : ''}}">{{value}}</view>
     </view>
   </view>
 
-  <!-- 3. 权限状态卡片 -->
-  <view class="info-card">
-    <view class="info-title">权限状态</view>
-    <view 
-      class="info-item {{value === '未请求' ? 'clickable' : ''}}" 
-      wx:for="{{authInfo}}" 
-      wx:for-item="value" 
-      wx:for-index="key" 
-      wx:key="key"
-      bindtap="onAuthItemTap"
-      data-key="{{key}}"
-    >
-      <view class="info-label">{{displayInfo[key]}}：</view>
-      <view class="info-value">{{value}}</view>
-    </view>
-  </view>
-
-  <!-- 4. 性能信息卡片 -->
-  <view class="info-card">
+  <!-- 3. 性能信息卡片（分享模式下隐藏） -->
+  <view class="info-card" wx:if="{{!isShared}}">
     <view class="info-title">性能信息</view>
     <view 
       class="info-item" 
@@ -59,11 +42,11 @@
       wx:key="key"
     >
       <view class="info-label">{{displayInfo[key]}}：</view>
-      <view class="info-value">{{value}}</view>
+      <view class="info-value {{value === '获取中...' ? 'loading' : ''}}">{{value}}</view>
     </view>
   </view>
 
-  <!-- 5. 电量信息卡片 -->
+  <!-- 4. 电量信息卡片 -->
   <view class="info-card">
     <view class="info-title">电量信息</view>
     <view 
@@ -74,7 +57,7 @@
       wx:key="key"
     >
       <view class="info-label">{{displayInfo[key]}}：</view>
-      <view class="info-value">{{value}}</view>
+      <view class="info-value {{value === '获取中...' ? 'loading' : ''}}">{{value}}</view>
     </view>
   </view>
 </view>

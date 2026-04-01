@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "五子棋游戏",
+  "navigationBarBackgroundColor": "#8B5A2B",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f5f5f5",
+  "enablePullDownRefresh": false
+}

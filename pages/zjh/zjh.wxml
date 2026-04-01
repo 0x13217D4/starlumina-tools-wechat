@@ -1,0 +1,54 @@
+<view class="container {{themeClass}}">
+  <view class="card">
+    <!-- 顶部时间显示 -->
+    <view class="time-display">
+      <text class="time-text">{{currentTime}}</text>
+    </view>
+
+    <!-- 游戏进行中状态 -->
+    <view class="game-area">
+      <!-- 局数显示 -->
+      <view class="round-display">
+        <text class="round-text">第 {{currentRound}} 局</text>
+      </view>
+
+      <!-- 扑克牌区域 -->
+      <view class="cards-area">
+        <view class="poker-card {{item.revealed ? 'revealed' : ''}} {{item.revealed ? 'suit-' + item.suitClass : ''}}" 
+              wx:for="{{cards}}" wx:key="index">
+          <view class="card-back" wx:if="{{!item.revealed}}">
+            <view class="card-back-pattern"></view>
+          </view>
+          <view class="card-front" wx:if="{{item.revealed}}">
+            <view class="card-corner top-left">
+              <text class="card-point">{{item.displayPoint}}</text>
+              <text class="card-suit">{{item.suitSymbol}}</text>
+            </view>
+            <view class="card-center">
+              <text class="card-suit-large">{{item.suitSymbol}}</text>
+            </view>
+            <view class="card-corner bottom-right">
+              <text class="card-point">{{item.displayPoint}}</text>
+              <text class="card-suit">{{item.suitSymbol}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 操作按钮区域 -->
+      <view class="button-area">
+        <button class="action-btn verify-btn" bindtap="verifyCards">我要验牌</button>
+        <button class="action-btn next-btn" bindtap="nextRound">下一局</button>
+      </view>
+
+      <!-- 提示卡片 -->
+      <view class="notice-card">
+        <view class="notice-icon">⚠️</view>
+        <view class="notice-content">
+          <text class="notice-title">温馨提示</text>
+          <text class="notice-text">本工具仅供娱乐，严禁用于赌博等违法违规行为。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

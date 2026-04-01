@@ -1,5 +1,8 @@
 <view class="container">
-  <view class="time-display" style="{{isLandscape ? 'margin-top:0;' : ''}}">
+  <view class="back-button" bindtap="goBack">
+    <text class="back-icon">❮</text>
+  </view>
+  <view class="time-display">
     <text class="time-text">{{currentTime}}</text>
   </view>
 </view>

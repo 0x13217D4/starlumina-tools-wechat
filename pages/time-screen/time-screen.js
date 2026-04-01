@@ -8,27 +8,6 @@ Page({
     this.timer = setInterval(() => {
       this.updateTime();
     }, 1000);
-    
-    // 检测横竖屏变化
-    wx.onWindowResize((res) => {
-      this.setData({
-        isLandscape: res.size.windowWidth > res.size.windowHeight
-      });
-    });
-    
-    // 初始检测 - 使用新的API替代已弃用的wx.getSystemInfo
-    try {
-      const windowInfo = wx.getWindowInfo();
-      this.setData({
-        isLandscape: windowInfo.windowWidth > windowInfo.windowHeight
-      });
-    } catch (error) {
-      console.warn('获取窗口信息失败:', error);
-      // 使用默认值
-      this.setData({
-        isLandscape: false
-      });
-    }
   },
 
   updateTime: function() {
@@ -41,6 +20,10 @@ Page({
     });
   },
 
+  goBack: function() {
+    wx.navigateBack();
+  },
+
   onUnload: function() {
     clearInterval(this.timer);
   },
@@ -49,6 +32,12 @@ Page({
     return {
       title: '时间屏幕 - 星芒集盒',
       path: '/pages/time-screen/time-screen'
+    }
+  },
+
+  onShareTimeline: function() {
+    return {
+      title: '时间屏幕 - 星芒集盒'
     }
   }
 })

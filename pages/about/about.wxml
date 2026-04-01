@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
 <view class="info-list">
     <view class="app-header">
       <image class="app-logo" src="/images/logo.jpg"></image>
@@ -6,7 +6,7 @@
     </view>
     <view class="info-item">
       <text class="label">版本号</text>
-      <text class="value">1.0.5</text>
+      <text class="value">2.1.3</text>
     </view>
     
     <view class="info-item">
@@ -19,9 +19,9 @@
       <text class="value">查看详情</text>
     </view>
     
-    <view class="info-item" bindtap="contactUs">
-      <text class="label">联系我们</text>
-      <text class="value">查看详情</text>
+    <view class="info-item">
+      <text class="label">意见反馈</text>
+      <button class="feedback-btn" open-type="contact">联系客服</button>
     </view>
     <view class="footer">
       <text class="copyright-text">Copyright © {{year}} 星芒集盒 版权所有</text>

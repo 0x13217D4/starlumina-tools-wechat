@@ -80,6 +80,10 @@ class SensorManager {
 // 数据格式化工具
 const DataFormatter = {
   formatAxisValue(value) {
+    // 值为0时返回 '0.00'，不带符号
+    if (value === 0) {
+      return '0.00';
+    }
     return value.toFixed(2);
   },
 
@@ -131,6 +135,7 @@ Page({
     this.setData({
       startTime: Date.now()
     });
+    this.loadThemeMode();
   },
 
   // 启动传感器监听
@@ -214,6 +219,14 @@ Page({
     UIHelper.showToast('数据已重置');
   },
 
+  // 页面隐藏时停止传感器以节省资源
+  onHide() {
+    if (this.sensorManager && this.data.isListening) {
+      this.sensorManager.stopAll();
+      this.setData({ isListening: false });
+    }
+  },
+
   // 页面卸载时清理资源
   onUnload() {
     if (this.sensorManager && this.data.isListening) {
@@ -225,8 +238,69 @@ Page({
   onShareAppMessage() {
     return {
       title: '传感器测试 - 星芒集盒',
-      path: '/pages/Sensor/Sensor',
-      imageUrl: '/images/tools.png'
+      path: '/pages/sensor/sensor'
     };
+  },
+
+  onShareTimeline() {
+    return {
+      title: '传感器测试 - 星芒集盒'
+    };
+  },
+
+  onShow() {
+    this.loadThemeMode();
+    // 自动启动传感器监听
+    if (!this.data.isListening) {
+      this.startSensorListening();
+    }
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    
+    // 获取实际的主题 - 优先使用应用级别的当前主题
+    const app = getApp()
+    let actualTheme = app.globalData.theme || 'light'
+    
+    // 如果应用级别没有主题信息，则按传统方式计算
+    if (!actualTheme || actualTheme === 'light') {
+      if (themeMode === 'system') {
+        const systemSetting = wx.getSystemSetting()
+        actualTheme = systemSetting.theme || 'light'
+      } else {
+        actualTheme = themeMode
+      }
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme)
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      })
+    }
   }
 });

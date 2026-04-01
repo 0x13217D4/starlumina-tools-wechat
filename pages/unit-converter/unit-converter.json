@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "单位转换器",
-  "navigationBarTextStyle": "black",
   "navigationStyle": "default",
   "usingComponents": {}
 }

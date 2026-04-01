@@ -1,39 +1,370 @@
+/* 全局样式 */
 .container {
-  padding: 20rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--page-bg);
 }
 
+/* 深色模式 */
+.container.dark {
+  background-color: #1f1f1f;
+}
+
+/* 工具容器 */
+.tool-container {
+  padding: 30rpx 20rpx;
+  max-width: 1200rpx;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 分类标题样式 - 固定像素单位 */
 .category-title {
-  font-size: 32rpx;
+  color: var(--text-primary);
+  margin: 30px 0 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--divider-color);
+  font-size: 18px !important;
   font-weight: bold;
-  margin: 40rpx 20rpx 20rpx;
-  color: #333;
+  padding: 0 15px;
+  position: relative;
 }
 
-.tool-list {
+.category-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+  margin-left: -8px;
+}
+
+/* 分类组容器 - 从左往右排列，不足一行时左对齐 */
+.category-group {
   display: flex;
   flex-wrap: wrap;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+  padding: 0 10rpx;
   justify-content: flex-start;
-  margin: -10rpx;
+  align-items: stretch;
 }
 
+/* 基础卡片样式 - 更小尺寸，去掉描述 */
 .tool-card {
-  width: 200rpx;
-  height: 100rpx;
-  margin: 10rpx;
-  padding: 10rpx;
-  background-color: #fff;
-  border-radius: 16rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: var(--shadow-color);
   text-align: center;
-  font-size: 24rpx;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  width: 110px;
+  height: 130px;
+  min-width: 110px;
+  max-width: 110px;
+  min-height: 130px;
+  max-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.tool-card .tool-name {
+  color: var(--text-primary) !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.1 !important;
+  word-break: break-word !important;
+  flex-shrink: 0 !important;
+  height: 15px !important;
+  display: block !important;
+}
+
+/* 去掉按钮边框，用背景色区分 */
+.use-btn {
+  padding: 4px 8px !important;
+  background-color: #3498db !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-align: center !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 交互效果 - 保持尺寸不变 */
+.tool-card:hover {
+  transform: translateY(-4rpx) !important;
+  box-shadow: var(--shadow-color) !important;
 }
 
 .tool-card:active {
-  transform: scale(0.96);
-  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+  transform: translateY(-2rpx) !important;
+  box-shadow: var(--shadow-color) !important;
+}
+
+.use-btn:hover {
+  background-color: #2980b9 !important;
+  transform: translateY(-2rpx) !important;
+  height: 18px !important;
+  font-size: 8px !important;
+}
+
+.use-btn:active {
+  transform: translateY(0) !important;
+  background-color: #3498db !important;
+  height: 18px !important;
+  font-size: 8px !important;
+}
+
+/* 响应式布局 - 根据屏幕宽度调整卡片尺寸 */
+@media (max-width: 750rpx) {
+  .tool-container {
+    padding: 20rpx 15rpx;
+  }
+  
+  .category-group {
+    gap: 15rpx;
+    padding: 0 5rpx;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480rpx) {
+  .tool-container {
+    padding: 15rpx 10rpx;
+  }
+  
+  .category-group {
+    gap: 12rpx;
+    padding: 0 5rpx;
+    justify-content: center;
+  }
+}
+
+/* 346px 宽度设备 - 三栏显示 */
+@media (min-width: 321px) and (max-width: 375px) {
+  .tool-container {
+    padding: 10px 5px;
+  }
+  
+  .category-group {
+    gap: 5px;
+    padding: 0 3px;
+    justify-content: flex-start;
+  }
+  
+  .tool-card {
+    width: 100px !important;
+    height: 120px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+    min-height: 120px !important;
+    max-height: 120px !important;
+    padding: 6px !important;
+  }
+  
+  .tool-card .tool-name {
+    font-size: 11px !important;
+    height: 13px !important;
+  }
+  
+  .use-btn {
+    font-size: 8px !important;
+    height: 15px !important;
+    padding: 3px 5px !important;
+  }
+  
+  .category-title {
+    font-size: 15px !important;
+    padding: 0 8px;
+    margin: 18px 0 10px;
+  }
+}
+
+/* 360px 及以下宽度设备 - 三栏显示 */
+@media (max-width: 320px) {
+  .tool-container {
+    padding: 10px 5px;
+  }
+  
+  .category-group {
+    gap: 6px;
+    padding: 0 3px;
+    justify-content: flex-start;
+  }
+  
+  .tool-card {
+    width: 88px;
+    height: 110px;
+    min-width: 88px;
+    max-width: 88px;
+    min-height: 110px;
+    max-height: 110px;
+    padding: 6px;
+  }
+  
+  .tool-card .tool-name {
+    font-size: 11px !important;
+    height: 13px !important;
+  }
+  
+  .use-btn {
+    font-size: 8px !important;
+    height: 15px !important;
+    padding: 3px 5px !important;
+  }
+  
+  .category-title {
+    font-size: 15px !important;
+    padding: 0 8px;
+    margin: 18px 0 10px;
+  }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 768rpx) {
+  .category-group {
+    gap: 24rpx;
+    padding: 0 15rpx;
+  }
+}
+
+@media (min-width: 1024rpx) {
+  .category-group {
+    gap: 30rpx;
+    padding: 0 20rpx;
+  }
+  
+  .tool-container {
+    padding: 40rpx 30rpx;
+  }
+}
+
+/* 超大屏幕优化 */
+@media (min-width: 1200rpx) {
+  .category-group {
+    gap: 35rpx;
+    padding: 0 25rpx;
+  }
+  
+  .tool-container {
+    padding: 50rpx 40rpx;
+  }
+}
+
+/* 强制防止任何样式覆盖 */
+page {
+  font-size: 32rpx !important;
+}
+
+.container {
+  font-size: 32rpx !important;
+}
+
+.tool-container {
+  font-size: 32rpx !important;
+}
+
+.category-group {
+  font-size: 32rpx !important;
+}
+
+/* 确保内容不溢出和尺寸固定 */
+.tool-card {
+  box-sizing: border-box !important;
+}
+
+.tool-card .tool-name,
+.tool-card .tool-desc,
+.tool-card .use-btn,
+.tool-card .tool-name::before,
+.tool-card .tool-desc::before,
+.tool-card .use-btn::before,
+.tool-card .tool-name::after,
+.tool-card .tool-desc::after,
+.tool-card .use-btn::after {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+.tool-card .tool-name,
+.tool-card .tool-desc,
+.tool-card .use-btn {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 防止文字过长 */
+.tool-card .tool-name {
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  hyphens: auto !important;
+}
+
+/* 重置可能的默认样式 */
+.tool-card view, .tool-card text {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+}
+
+/* 强制覆盖所有可能的字体继承 */
+.tool-card .use-btn,
+.tool-card .use-btn view,
+.tool-card .use-btn text {
+  font-size: 8px !important;
+  color: white !important;
+}
+
+/* 工具页面通用样式 */
+.tool-page {
+  padding: 40rpx;
+  flex: 1;
+}
+
+.tool-content {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.info-card {
+  background-color: var(--card-bg);
+  padding: 60rpx;
+  border-radius: 24rpx;
+  margin: 60rpx 0;
+}
+
+.info-card p {
+  margin: 30rpx 0;
+  font-size: 32rpx;
+  color: var(--text-primary);
+}
+
+.info-card strong {
+  color: var(--text-primary);
 }

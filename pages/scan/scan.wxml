@@ -1,12 +1,79 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="scan-card">
-      <view class="result-card">
-        <text class="result-title">扫描结果</text>
-        <text class="result-content">{{result}}</text>
+    <!-- 普通文本结果 -->
+    <view class="result-card" wx:if="{{result && resultType === 'text'}}">
+      <text class="result-title">扫描结果</text>
+      <text class="result-content">{{result}}</text>
+      <button bindtap="copyResult" class="copy-btn">
+        复制结果
+      </button>
+    </view>
+    
+    <!-- WIFI二维码结果 -->
+    <view class="result-card wifi-result" wx:if="{{result && resultType === 'wifi'}}">
+      <text class="result-title">WIFI 信息</text>
+      
+      <view class="wifi-info-item">
+        <text class="wifi-label">网络名称</text>
+        <text class="wifi-value">{{wifiInfo.ssid}}</text>
       </view>
+      
+      <view class="wifi-info-item">
+        <text class="wifi-label">加密类型</text>
+        <text class="wifi-value">{{wifiInfo.encryptionName}}</text>
+      </view>
+      
+      <view class="wifi-info-item" wx:if="{{wifiInfo.password}}">
+        <text class="wifi-label">密码</text>
+        <text class="wifi-value password">{{wifiInfo.password}}</text>
+      </view>
+      
+      <view class="wifi-info-item" wx:if="{{wifiInfo.hidden}}">
+        <text class="wifi-label">隐藏网络</text>
+        <text class="wifi-value">是</text>
+      </view>
+      
+      <button class="connect-wifi-btn" bindtap="connectWifi">连接该WiFi</button>
+    </view>
+    
+    <!-- 登机牌结果 -->
+    <view class="result-card boarding-pass-result" wx:if="{{result && resultType === 'boardingPass'}}">
+      <text class="result-title">登机牌信息</text>
+      
+      <view class="boarding-pass-header">
+        <view class="flight-info">
+          <text class="flight-number">{{boardingPassInfo.flightNumber}}</text>
+          <text class="flight-date">{{boardingPassInfo.flightDate}}</text>
+        </view>
+        <view class="route-info">
+          <text class="city-code">{{boardingPassInfo.departureCityName || boardingPassInfo.departureCity}}</text>
+          <text class="route-arrow">→</text>
+          <text class="city-code">{{boardingPassInfo.arrivalCityName || boardingPassInfo.arrivalCity}}</text>
+        </view>
+      </view>
+      
+      <view class="boarding-pass-details">
+        <view class="detail-item" wx:if="{{boardingPassInfo.passengerName}}">
+          <text class="detail-label">乘客姓名</text>
+          <text class="detail-value">{{boardingPassInfo.passengerName}}</text>
+        </view>
+        
+        <view class="detail-item" wx:if="{{boardingPassInfo.seatNumber}}">
+          <text class="detail-label">座位号</text>
+          <text class="detail-value highlight">{{boardingPassInfo.seatNumber}}</text>
+        </view>
+        
+        <view class="detail-item" wx:if="{{boardingPassInfo.className}}">
+          <text class="detail-label">舱位</text>
+          <text class="detail-value">{{boardingPassInfo.className}}</text>
+        </view>
+      </view>
+    </view>
   </view>
   
-  <button bindtap="startScan" class="scan-btn" disabled="{{isScanning}}">
-    {{isScanning ? '扫描中...' : '开始扫描'}}
-  </button>
+  <view class="button-group">
+    <button bindtap="selectFromAlbum" class="scan-btn camera-btn" disabled="{{isScanning}}">
+      {{isScanning ? '扫描中...' : '相机扫描'}}
+    </button>
+  </view>
 </view>

@@ -12,12 +12,17 @@ function calculateOptimalQuality(width, height, baseQuality = 80) {
   let quality = baseQuality;
 
   if (complexity > 5) {
-    quality = Math.max(60, baseQuality - 10);
+    quality = Math.max(50, baseQuality - 20); // 降低质量上限
   } else if (complexity > 2) {
-    quality = Math.max(70, baseQuality - 5);
+    quality = Math.max(60, baseQuality - 15);
+  } else if (complexity > 0.5) {
+    quality = Math.max(70, baseQuality - 10);
+  } else {
+    // 小图片使用更低的压缩质量
+    quality = Math.min(60, baseQuality);
   }
 
-  return Math.min(95, quality); // 确保不超过95%
+  return Math.min(85, quality); // 降低最大质量到85%
 }
 
 /**
@@ -36,6 +41,27 @@ function selectBestFormat(width, height, userFormat) {
     return userFormat;
 }
 
+/**
+ * 智能调整图片尺寸
+ * @param {number} width - 原始宽度
+ * @param {number} height - 原始高度
+ * @param {number} maxSize - 最大尺寸限制
+ * @returns {Object} - 包含新宽高的对象
+ */
+function calculateOptimalSize(width, height, maxSize = 1920) {
+  let targetWidth = width;
+  let targetHeight = height;
+  
+  // 如果任一维度超过最大尺寸，按比例缩放
+  if (width > maxSize || height > maxSize) {
+    const ratio = Math.min(maxSize / width, maxSize / height);
+    targetWidth = Math.round(width * ratio);
+    targetHeight = Math.round(height * ratio);
+  }
+  
+  return { width: targetWidth, height: targetHeight };
+}
+
 
 // pages/compress/compress.js (或你的页面JS文件)
 Page({
@@ -50,11 +76,53 @@ Page({
     compressedPath: '',
     format: 'auto', // 默认设为auto
     isCompressing: false,
-    progress: 0
+    progress: 0,
+    originalFileSize: 0, // 保存原始文件大小(字节)
+    originalFormat: '', // 保存原始图片格式
+    themeClass: ''
   },
 
   onLoad: function(options) {
+    this.loadThemeMode();
     // 页面创建时执行
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    
+    // 获取实际的主题 - 优先使用应用级别的当前主题
+    const app = getApp()
+    let actualTheme = app.globalData.theme || 'light'
+    
+    // 如果应用级别没有主题信息，则按传统方式计算
+    if (!actualTheme || actualTheme === 'light') {
+      if (themeMode === 'system') {
+        const systemSetting = wx.getSystemSetting()
+        actualTheme = systemSetting.theme || 'light'
+      } else {
+        actualTheme = themeMode
+      }
+    }
+    
+    this.updateThemeClass(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
   },
 
   chooseImage: function() {
@@ -91,6 +159,8 @@ Page({
              that.setData({
                 imagePath: tempFilePath,
                 originalSize: (fileInfo.size / 1024).toFixed(2) + ' KB',
+                originalFileSize: fileInfo.size, // 保存原始文件大小
+                originalFormat: imgInfo.type || '', // 保存原始格式
                 dimensions: `${imgInfo.width} × ${imgInfo.height}`,
                 compressedPath: '',
                 compressedSize: '0 KB',
@@ -124,6 +194,7 @@ Page({
 
     const { showResize, format: userFormat, quality: userQuality } = this.data;
     const imagePath = this.data.imagePath;
+    const originalSize = this.data.originalFileSize; // 获取原始文件大小
     
     // 清理旧压缩文件
     if (this.data.compressedPath) {
@@ -134,68 +205,110 @@ Page({
         });
     }
 
-        // 获取图片信息并执行压缩
-        wx.getImageInfo({
-          src: imagePath,
-          success(imgInfo) {
-            let targetWidth = imgInfo.width;
-            let targetHeight = imgInfo.height;
+    // 获取图片信息并执行压缩
+    wx.getImageInfo({
+      src: imagePath,
+      success(imgInfo) {
+        let targetWidth = imgInfo.width;
+        let targetHeight = imgInfo.height;
 
-            // 尺寸调整
-            if (showResize && targetWidth > 1920) {
-              const ratio = 1920 / targetWidth;
-              targetWidth = 1920;
-              targetHeight = Math.round(targetHeight * ratio);
-            }
+        // 智能尺寸调整
+        if (showResize) {
+          const newSize = calculateOptimalSize(targetWidth, targetHeight, 1920);
+          targetWidth = newSize.width;
+          targetHeight = newSize.height;
+        }
 
-            // 计算最优质量
-            const optimalQuality = calculateOptimalQuality(targetWidth, targetHeight, userQuality);
-            that.setData({ quality: optimalQuality });
+        // 计算最优质量
+        const optimalQuality = calculateOptimalQuality(targetWidth, targetHeight, userQuality);
+        that.setData({ quality: optimalQuality });
 
-            // 使用微信原生压缩API
-            wx.compressImage({
-              src: imagePath,
-              quality: optimalQuality,
-              success(res) {
-                const fs = wx.getFileSystemManager();
-                fs.getFileInfo({
-                  filePath: res.tempFilePath,
-                  success(info) {
-                    const originalSizeKB = parseFloat(that.data.originalSize);
-                    const compressedSizeKB = (info.size / 1024);
-                    const savingPercentage = originalSizeKB > 0 
-                      ? (100 - ((compressedSizeKB / originalSizeKB) * 100)).toFixed(1) 
-                      : '0.0';
-                    
-                    that.setData({
-                      compressedPath: res.tempFilePath,
-                      compressedSize: compressedSizeKB.toFixed(2) + ' KB',
-                      saving: savingPercentage + '%',
-                      progress: 100,
-                      isCompressing: false
-                    });
-                    
-                    wx.hideLoading();
-                    wx.showToast({ title: '压缩成功', icon: 'success' });
-                  },
-                  fail(err) {
-                    console.error('获取压缩文件信息失败:', err);
-                    that.handleCompressError('获取压缩结果失败');
-                  }
-                });
-              },
-              fail(err) {
-                console.error('压缩失败:', err);
-                that.handleCompressError('压缩失败: ' + (err.errMsg || '未知错误'));
-              }
-            });
-          },
-          fail(err) {
-            console.error('获取图片信息失败:', err);
-            that.handleCompressError('图片信息获取失败');
-          }
-        });
+        // 尝试多种压缩策略以获得最佳效果
+        that.tryMultipleCompressionStrategies(imagePath, optimalQuality, originalSize, targetWidth, targetHeight);
       },
+      fail(err) {
+        console.error('获取图片信息失败:', err);
+        that.handleCompressError('图片信息获取失败');
+      }
+    });
+  },
+
+  // 尝试多种压缩策略
+  tryMultipleCompressionStrategies: function(imagePath, baseQuality, originalSize, targetWidth, targetHeight) {
+    const that = this;
+    const strategies = [
+      { quality: baseQuality, label: '标准压缩' },
+      { quality: Math.max(30, baseQuality - 20), label: '高质量压缩' },
+      { quality: Math.max(20, baseQuality - 40), label: '高压缩比' }
+    ];
+
+    let currentStrategy = 0;
+    
+    function tryNextStrategy() {
+      if (currentStrategy >= strategies.length) {
+        // 所有策略都失败，使用原图
+        that.setData({
+          compressedPath: imagePath,
+          compressedSize: (originalSize / 1024).toFixed(2) + ' KB',
+          saving: '0%',
+          progress: 100,
+          isCompressing: false
+        });
+        wx.hideLoading();
+        wx.showToast({ title: '无法进一步压缩，使用原图', icon: 'none' });
+        return;
+      }
+
+      const strategy = strategies[currentStrategy];
+      console.log(`尝试策略: ${strategy.label}, 质量: ${strategy.quality}`);
+      
+      wx.compressImage({
+        src: imagePath,
+        quality: strategy.quality,
+        success(res) {
+          const fs = wx.getFileSystemManager();
+          fs.getFileInfo({
+            filePath: res.tempFilePath,
+            success(info) {
+              // 如果压缩效果良好，使用这个结果
+              if (info.size < originalSize * 0.95) { // 至少压缩5%
+                const compressedSizeKB = (info.size / 1024);
+                const savingPercentage = ((originalSize - info.size) / originalSize * 100).toFixed(1);
+                
+                that.setData({
+                  compressedPath: res.tempFilePath,
+                  compressedSize: compressedSizeKB.toFixed(2) + ' KB',
+                  saving: savingPercentage + '%',
+                  progress: 100,
+                  isCompressing: false
+                });
+                
+                wx.hideLoading();
+                wx.showToast({ title: '压缩成功', icon: 'success' });
+              } else {
+                // 压缩效果不佳，尝试下一个策略
+                console.log(`策略 ${strategy.label} 压缩效果不佳，尝试下一个`);
+                currentStrategy++;
+                tryNextStrategy();
+              }
+            },
+            fail(err) {
+              console.error(`策略 ${strategy.label} 获取文件信息失败:`, err);
+              currentStrategy++;
+              tryNextStrategy();
+            }
+          });
+        },
+        fail(err) {
+          console.error(`策略 ${strategy.label} 压缩失败:`, err);
+          currentStrategy++;
+          tryNextStrategy();
+        }
+      });
+    }
+    
+    tryNextStrategy();
+  },
 
   setFormat: function(e) {
     this.setData({ format: e.detail.value });

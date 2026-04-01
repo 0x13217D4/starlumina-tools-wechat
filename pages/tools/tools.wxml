@@ -1,16 +1,21 @@
-<view class="container">
-  <block wx:for="{{toolCategories}}" wx:key="category">
-    <view class="category-title">{{item.category}}</view>
-    <view class="tool-list">
-      <block wx:for="{{item.tools}}" wx:key="path" wx:for-item="tool" wx:for-index="toolIndex">
-        <view class="tool-card" 
-              bindtap="navigateToTool" 
-              data-path="{{tool.path}}" 
-              data-category-index="{{index}}"
-              data-tool-index="{{toolIndex}}">
-          <text>{{tool.name}}</text>
-        </view>
-      </block>
-    </view>
-  </block>
+<view class="container {{themeClass}}">
+    <view class="tool-container">
+    <block wx:for="{{toolCategories}}" wx:key="category">
+      <view class="category-title">{{item.category}}</view>
+      <view class="category-group">
+        <block wx:for="{{item.tools}}" wx:key="path" wx:for-item="tool" wx:for-index="toolIndex">
+          <view 
+            class="tool-card" 
+            bindtap="navigateToTool" 
+            data-path="{{tool.path}}" 
+            data-category-index="{{index}}"
+            data-tool-index="{{toolIndex}}"
+          >
+            <view class="tool-name">{{tool.name}}</view>
+            <view class="use-btn">使用</view>
+          </view>
+        </block>
+      </view>
+    </block>
+  </view>
 </view>

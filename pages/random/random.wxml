@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="control-panel">
     <view class="input-group">
       <text>最小值:</text>

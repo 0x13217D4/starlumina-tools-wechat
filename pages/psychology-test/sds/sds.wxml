@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- 测试进度 -->
   <view class="progress">
     <text>问题 {{currentQuestion + 1}}/{{questions.length}}</text>

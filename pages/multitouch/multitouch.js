@@ -1,19 +1,65 @@
 Page({
   onShareTimeline: function() {
     return {
-      title: '星芒集盒 - 多点触控测试',
-      imageUrl: '/images/tools.png'
+      title: '星芒集盒 - 多点触控测试'
     }
   },
   data: {
     touchPoints: [],
     currentPoints: 0,
-    maxPoints: 0
+    maxPoints: 0,
+    themeClass: ''
   },
   onLoad: function(options) {
+    this.loadThemeMode();
     this.setData({
       touchPoints: []
     });
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    let actualTheme
+    if (themeMode === 'system') {
+      const systemSetting = wx.getSystemSetting()
+      actualTheme = systemSetting.theme || 'light'
+    } else {
+      actualTheme = themeMode
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme)
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      })
+    }
   },
     handleTouchStart: function(e) {
       const touches = e.touches;
@@ -67,8 +113,7 @@ Page({
     onShareAppMessage: function() {
       return {
         title: '多指触控测试',
-        path: '/pages/multitouch/multitouch',
-        imageUrl: '/images/tools.png'
+        path: '/pages/multitouch/multitouch'
       }
     }
 });

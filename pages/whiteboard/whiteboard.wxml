@@ -1,0 +1,74 @@
+<view class="container {{themeClass}}">
+  <!-- 绘图画布 - 使用 Canvas 2D 新接口 -->
+  <canvas 
+    id="whiteboardCanvas" 
+    type="2d"
+    class="canvas"
+    disable-scroll="true"
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+    bindtouchcancel="onTouchCancel"
+  ></canvas>
+
+  <!-- 缩放控制按钮 -->
+  <view class="zoom-controls">
+    <view class="zoom-btn" bindtap="zoomOut">
+      <text>-</text>
+    </view>
+    <view class="zoom-info" bindtap="resetView">
+      <text>{{scalePercent}}%</text>
+    </view>
+    <view class="zoom-btn" bindtap="zoomIn">
+      <text>+</text>
+    </view>
+  </view>
+
+  <!-- 工具栏 -->
+  <view class="toolbar">
+    <view class="tool-item {{currentTool === 'select' ? 'active' : ''}}" bindtap="switchTool" data-tool="select">
+      <text class="icon">↖</text>
+      <text>选择</text>
+    </view>
+    <view class="tool-item {{currentTool === 'pen' ? 'active' : ''}}" bindtap="switchTool" data-tool="pen">
+      <text class="icon">✏</text>
+      <text>笔</text>
+    </view>
+    <view class="tool-item {{currentTool === 'eraser' ? 'active' : ''}}" bindtap="switchTool" data-tool="eraser">
+      <text class="icon">🧹</text>
+      <text>板擦</text>
+    </view>
+  </view>
+
+  <!-- 笔工具选项 -->
+  <view class="tool-options" wx:if="{{showPenPanel}}">
+    <view class="color-picker">
+      <text>颜色:</text>
+      <view class="colors">
+        <view 
+          class="color-option {{selectedColor === color ? 'selected' : ''}}" 
+          wx:for="{{colors}}" 
+          wx:key="index" 
+          style="background-color: {{item}};"
+          bindtap="selectColor"
+          data-color="{{item}}"
+        ></view>
+      </view>
+    </view>
+    <view class="brush-size">
+      <text>粗细: {{brushSize}}</text>
+      <slider 
+        min="1" 
+        max="50" 
+        value="{{brushSize}}" 
+        bindchange="onBrushSizeChange" 
+        show-value="false"
+      ></slider>
+    </view>
+  </view>
+
+  <!-- 清除按钮 -->
+  <view class="clear-btn-container" wx:if="{{showEraserPanel}}">
+    <button class="clear-btn" bindtap="clearBoard">一键清除</button>
+  </view>
+</view>

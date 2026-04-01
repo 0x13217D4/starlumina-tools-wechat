@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- 控制按钮 -->
   <view class="control-panel">
     <button 
@@ -32,62 +32,12 @@
       <!-- 中心点 -->
       <view class="compass-center"></view>
     </view>
-  </view>
-
-  <!-- 方向信息 -->
-  <view class="direction-info">
+    
+    <!-- 方向信息 -->
     <view class="direction-display">
       <view class="direction-degree">{{directionFormatted}}</view>
       <view class="direction-text">{{directionText}}</view>
-      <view class="accuracy-info">
-        <view class="accuracy-label">精度</view>
-        <view class="accuracy-value {{accuracyLevel >= 3 ? 'high' : accuracyLevel >= 2 ? 'medium' : 'low'}}">{{accuracy}}</view>
-      </view>
     </view>
   </view>
 
-  <!-- 方向说明 -->
-  <view class="direction-guide">
-    <view class="guide-title">方向说明</view>
-    <view class="guide-grid">
-      <view class="guide-item">
-        <view class="guide-direction">北 (N)</view>
-        <view class="guide-range">0° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">东北 (NE)</view>
-        <view class="guide-range">45° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">东 (E)</view>
-        <view class="guide-range">90° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">东南 (SE)</view>
-        <view class="guide-range">135° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">南 (S)</view>
-        <view class="guide-range">180° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">西南 (SW)</view>
-        <view class="guide-range">225° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">西 (W)</view>
-        <view class="guide-range">270° ± 22.5°</view>
-      </view>
-      <view class="guide-item">
-        <view class="guide-direction">西北 (NW)</view>
-        <view class="guide-range">315° ± 22.5°</view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 状态指示器 -->
-  <view class="status-indicator {{isListening ? 'active' : 'inactive'}}">
-    <view class="status-dot"></view>
-    <text class="status-text">{{isListening ? '监听中' : '已停止'}}</text>
-  </view>
 </view>

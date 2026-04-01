@@ -1,8 +1,7 @@
 Page({
   onShareTimeline: function() {
     return {
-      title: '星芒集盒 - 二维码工具',
-      imageUrl: '/images/tools.png'
+      title: '星芒集盒 - 二维码工具'
     }
   },
   data: {
@@ -15,7 +14,8 @@ Page({
       ssid: '',
       password: '',
       encryption: 'WPA' // WPA/WEP/none
-    }
+    },
+    themeClass: ''
   },
   
   switchMode(e) {
@@ -81,20 +81,19 @@ Page({
       return;
     }
     
-    try {
-      const encodedText = encodeURIComponent(text);
-      // 优化API参数：降低质量提高速度，移除不必要的margin
-      const url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}&qzone=0`;
-      this.setData({ 
-        generatedQRCode: url,
-        lastText: text,
-        isLoading: false 
-      });
-    } catch (error) {
-      console.error('生成二维码出错:', error);
-      wx.showToast({ title: '生成失败', icon: 'none' });
-      this.setData({ isLoading: false });
-    }
+    // 尝试多个二维码服务，提高可用性
+    const qrServices = [
+      {
+        name: 'QR Server',
+        generate: (encodedText) => `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}&qzone=0`
+      },
+      {
+        name: 'QR Code API',
+        generate: (encodedText) => `https://api.qrcode-generator.com/v1/create/?text=${encodedText}&size=200x200`
+      },
+    ];
+
+    this.tryGenerateQR(text, qrServices, 'text');
   },
 
   generateWifiQR() {
@@ -108,27 +107,74 @@ Page({
       return;
     }
     
-    try {
-      let wifiStr = `WIFI:T:${encryption};S:${ssid};`;
-      if (password) wifiStr += `P:${password};`;
-      wifiStr += ';';
-      
-      const encodedText = encodeURIComponent(wifiStr);
-      // 优化API参数：降低质量提高速度，移除不必要的margin
-      const url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}&qzone=0`;
-      this.setData({ 
-        generatedQRCode: url,
-        lastWifiConfig: wifiConfigStr,
-        isLoading: false 
-      });
-    } catch (error) {
-      console.error('生成WIFI二维码出错:', error);
-      wx.showToast({ title: '生成失败', icon: 'none' });
-      this.setData({ isLoading: false });
-    }
+    let wifiStr = `WIFI:T:${encryption};S:${ssid};`;
+    if (password) wifiStr += `P:${password};`;
+    wifiStr += ';';
+    
+    // 尝试多个二维码服务，提高可用性
+    const qrServices = [
+      {
+        name: 'QR Server',
+        generate: (encodedText) => `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}&qzone=0`
+      },
+      {
+        name: 'QR Code API',
+        generate: (encodedText) => `https://api.qrcode-generator.com/v1/create/?text=${encodedText}&size=200x200`
+      }
+    ];
+
+    this.tryGenerateQR(wifiStr, qrServices, 'wifi', wifiConfigStr);
   },
-  
-  
+
+  // 尝试生成二维码的通用方法
+  tryGenerateQR(text, services, type, wifiConfigStr = null) {
+    let currentServiceIndex = 0;
+    
+    const tryNextService = () => {
+      if (currentServiceIndex >= services.length) {
+        wx.showToast({ title: '所有二维码服务都不可用', icon: 'none' });
+        this.setData({ isLoading: false });
+        return;
+      }
+      
+      const service = services[currentServiceIndex];
+      try {
+        const encodedText = encodeURIComponent(text);
+        const url = service.generate(encodedText);
+        
+        // 验证URL是否可访问
+        wx.request({
+          url: url,
+          method: 'HEAD',
+          timeout: 5000,
+          success: (res) => {
+            if (res.statusCode === 200) {
+              this.setData({ 
+                generatedQRCode: url,
+                lastText: type === 'text' ? text : this.data.lastText,
+                lastWifiConfig: type === 'wifi' ? wifiConfigStr : this.data.lastWifiConfig,
+                isLoading: false 
+              });
+            } else {
+              currentServiceIndex++;
+              tryNextService();
+            }
+          },
+          fail: () => {
+            currentServiceIndex++;
+            tryNextService();
+          }
+        });
+      } catch (error) {
+        console.warn(`二维码服务 ${service.name} 失败:`, error);
+        currentServiceIndex++;
+        tryNextService();
+      }
+    };
+    
+    tryNextService();
+  },
+
   saveQRCode() {
     if (!this.data.generatedQRCode) return;
     if (this.data.isSaving) return; // 防止重复点击
@@ -144,6 +190,7 @@ Page({
     // 并行下载和准备保存
     wx.downloadFile({
       url: this.data.generatedQRCode,
+      timeout: 10000,
       success: (res) => {
         // 缓存文件路径
         this.setData({
@@ -152,13 +199,14 @@ Page({
         });
         this.saveToAlbum(res.tempFilePath);
       },
-      fail: () => {
-        wx.showToast({ title: '下载失败', icon: 'none' });
+      fail: (err) => {
+        console.error('下载二维码失败:', err);
+        wx.showToast({ title: '下载失败，请重试', icon: 'none' });
         this.setData({ isSaving: false });
       }
     });
   },
-  
+
   saveToAlbum(tempFilePath) {
     wx.saveImageToPhotosAlbum({
       filePath: tempFilePath,
@@ -180,8 +228,59 @@ Page({
   onShareAppMessage: function() {
     return {
       title: '二维码生成工具',
-      path: '/pages/qrcode/qrcode',
-      imageUrl: this.data.generatedQRCode || '/images/tools.png'
+      path: '/pages/qrcode/qrcode'
+    }
+  },
+
+  onShow() {
+    this.loadThemeMode()
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme)
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system'
+    
+    // 获取实际的主题 - 优先使用应用级别的当前主题
+    const app = getApp()
+    let actualTheme = app.globalData.theme || 'light'
+    
+    // 如果应用级别没有主题信息，则按传统方式计算
+    if (!actualTheme || actualTheme === 'light') {
+      if (themeMode === 'system') {
+        const systemSetting = wx.getSystemSetting()
+        actualTheme = systemSetting.theme || 'light'
+      } else {
+        actualTheme = themeMode
+      }
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme)
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme)
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = ''
+    if (theme === 'dark') {
+      themeClass = 'dark'
+    } else {
+      themeClass = ''
+    }
+    this.setData({ themeClass })
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      })
     }
   }
 })

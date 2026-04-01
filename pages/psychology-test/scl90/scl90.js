@@ -1,19 +1,6 @@
 Page({
-  onShareAppMessage() {
-    return {
-      title: 'SCL90心理健康自评量表 - 星芒集盒',
-      path: '/pages/psychology-test/scl90/scl90',
-      imageUrl: '/images/logo.jpg'
-    }
-  },
-  onShareTimeline() {
-    return {
-      title: 'SCL90心理健康自评量表 - 星芒集盒',
-      path: '/pages/psychology-test/scl90/scl90',
-      imageUrl: '/images/logo.jpg'
-    }
-  },
   data: {
+    themeClass: '',
     dimensions: [
       { name: "躯体化", id: "somatization" },
       { name: "强迫症状", id: "obsessive" },
@@ -110,7 +97,7 @@ Page({
       { id: 81, text: "大叫或摔东西", dimension: "hostility" },
       { id: 82, text: "害怕会在公共场合昏倒", dimension: "phobic" },
       { id: 83, text: "感到别人想占您的便宜", dimension: "paranoid" },
-      { id: 84, text: "为一些有关“性”的想法而很苦恼", dimension: "psychotic" },
+      { id: 84, text: "为一些有关'性'的想法而很苦恼", dimension: "psychotic" },
       { id: 85, text: "认为应该因为自己的过错而受到惩罚", dimension: "other" },
       { id: 86, text: "感到要赶快把事情做完", dimension: "obsessive" },
       { id: 87, text: "感到自己的身体有严重问题", dimension: "somatization" },
@@ -136,6 +123,72 @@ Page({
     totalSymptomIndex: 0, // 总症状指数 (总分/90)
     dimensionScores: {}, // 各维度得分对象
     dimensionDescriptions: {} // 各维度描述对象
+  },
+
+  onLoad: function() {
+    // 启用返回确认提示
+    wx.enableAlertBeforeUnload({
+      message: '测试尚未完成，确定要退出吗？'
+    });
+    this.loadThemeMode();
+  },
+
+  onShow() {
+    this.loadThemeMode();
+  },
+
+  onThemeChanged(theme) {
+    this.updateThemeClass(theme);
+  },
+
+  loadThemeMode() {
+    const themeMode = wx.getStorageSync('themeMode') || 'system';
+    let actualTheme;
+    if (themeMode === 'system') {
+      const systemSetting = wx.getSystemSetting();
+      actualTheme = systemSetting.theme || 'light';
+    } else {
+      actualTheme = themeMode;
+    }
+    
+    // 更新页面主题类
+    this.updateThemeClass(actualTheme);
+    
+    // 更新导航栏样式
+    this.updateNavigationBar(actualTheme);
+  },
+
+  updateThemeClass(theme) {
+    let themeClass = '';
+    if (theme === 'dark') {
+      themeClass = 'dark';
+    } else {
+      themeClass = '';
+    }
+    this.setData({ themeClass });
+  },
+  
+  updateNavigationBar(theme) {
+    // 设置导航栏
+    if (wx.setNavigationBarColor && typeof wx.setNavigationBarColor === 'function') {
+      wx.setNavigationBarColor({
+        frontColor: theme === 'dark' ? '#ffffff' : '#000000',
+        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff'
+      });
+    }
+  },
+
+  onShareAppMessage() {
+    return {
+      title: 'SCL90心理健康自评量表 - 星芒集盒',
+      path: '/pages/psychology-test/scl90/scl90'
+    }
+  },
+  onShareTimeline() {
+    return {
+      title: 'SCL90心理健康自评量表 - 星芒集盒',
+      path: '/pages/psychology-test/scl90/scl90'
+    }
   },
 
   selectOption: function (e) {
@@ -236,6 +289,9 @@ Page({
       dimensionScores: dimensionScores,
       dimensionDescriptions: dimensionDescriptions
     });
+    
+    // 测试完成后，关闭返回确认提示
+    wx.disableAlertBeforeUnload();
   },
 
   restartTest: function () {
@@ -253,7 +309,3 @@ Page({
     });
   }
 });
-
-
-
-

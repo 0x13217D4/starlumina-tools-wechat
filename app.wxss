@@ -1,10 +1,160 @@
-/**app.wxss**/
-.container {
-  height: 100%;
+/* 全局安全区域适配 */
+page {
+  /* 保证顶部不被刘海遮挡 */
+  padding-top: env(safe-area-inset-top);
+  padding-top: constant(safe-area-inset-top); /* 兼容旧版 iOS */
+}
+
+/* 浅色模式变量（默认） */
+page {
+  --page-bg: #f5f5f5;
+  --content-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --border-color: #f0f0f0;
+  --divider-color: #eeeeee;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 手动深色模式 - page 元素 */
+page.dark {
+  --page-bg: #1f1f1f;
+  --content-bg: #1a1a1a;
+  --card-bg: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-tertiary: #999999;
+  --border-color: #3a3a3a;
+  --divider-color: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* 手动深色模式 - page-wrapper 元素 */
+.page-wrapper.dark {
+  --page-bg: #1f1f1f;
+  --content-bg: #1a1a1a;
+  --card-bg: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-tertiary: #999999;
+  --border-color: #3a3a3a;
+  --divider-color: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  background-color: #1f1f1f;
+}
+
+/* 手动深色模式 - container 元素 */
+.container.dark {
+  --page-bg: #1f1f1f;
+  --content-bg: #1a1a1a;
+  --card-bg: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-tertiary: #999999;
+  --border-color: #3a3a3a;
+  --divider-color: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  background-color: #1f1f1f;
+}
+
+/* 跟随系统深色模式 */
+@media (prefers-color-scheme: dark) {
+  page.dark-mode-system {
+    --page-bg: #1f1f1f;
+    --content-bg: #1a1a1a;
+    --card-bg: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --border-color: #3a3a3a;
+    --divider-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .page-wrapper.dark-mode-system {
+    --page-bg: #1f1f1f;
+    --content-bg: #1a1a1a;
+    --card-bg: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --border-color: #3a3a3a;
+    --divider-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    background-color: #1f1f1f;
+  }
+  
+  .container.dark-mode-system {
+    --page-bg: #1f1f1f;
+    --content-bg: #1a1a1a;
+    --card-bg: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --border-color: #3a3a3a;
+    --divider-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    background-color: #1f1f1f;
+  }
+}
+
+/* 跟随系统浅色模式 */
+@media (prefers-color-scheme: light) {
+  page.dark-mode-system {
+    --page-bg: #f5f5f5;
+    --content-bg: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    --border-color: #f0f0f0;
+    --divider-color: #eeeeee;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .page-wrapper.dark-mode-system {
+    --page-bg: #f5f5f5;
+    --content-bg: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    --border-color: #f0f0f0;
+    --divider-color: #eeeeee;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    background-color: #f5f5f5;
+  }
+  
+  .container.dark-mode-system {
+    --page-bg: #f5f5f5;
+    --content-bg: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-tertiary: #999999;
+    --border-color: #f0f0f0;
+    --divider-color: #eeeeee;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    background-color: #f5f5f5;
+  }
+}
+
+/* 自定义导航栏容器（如需） */
+.custom-nav {
+  height: calc(44px + env(safe-area-inset-top));
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+  justify-content: center;
+  background: var(--card-bg);
+  position: relative;
+  z-index: 500;
+}
+
+.custom-nav-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1;
+}

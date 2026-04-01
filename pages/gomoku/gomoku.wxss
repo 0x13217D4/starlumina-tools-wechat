@@ -1,0 +1,355 @@
+/* 五子棋游戏样式 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.game-title {
+  font-size: 2.5rem;
+  color: #8B5A2B;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.game-timer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.9rem;
+  color: #8B5A2B;
+  background: rgba(222, 184, 135, 0.3);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #DEB887;
+  font-weight: 600;
+}
+
+.game-area {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.board-section {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.controls-section {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.game-board-container {
+  background: #DEB887;
+  border: 4px solid #8B5A2B;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 25px rgba(139, 90, 43, 0.3);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-canvas {
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.game-info {
+  background: #f8f9fa;
+  border: 2px solid #DEB887;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #8B5A2B;
+  background: white;
+  color: #8B5A2B;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 100px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn:hover {
+  background: #DEB887;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 90, 43, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.primary {
+  background: #8B5A2B;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #6B4226;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.game-status {
+  background: #f8f9fa;
+  border: 2px solid #DEB887;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.status-title {
+  font-weight: bold;
+  color: #8B5A2B;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.status-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.current-player {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.current-player.black {
+  background: #000;
+}
+
+.current-player.white {
+  background: #fff;
+}
+
+.game-stats {
+  background: #f8f9fa;
+  border: 2px solid #DEB887;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stats-title {
+  font-weight: bold;
+  color: #8B5A2B;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #8B5A2B;
+}
+
+.game-rules {
+  background: #f8f9fa;
+  border: 2px solid #DEB887;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.rules-title {
+  font-weight: bold;
+  color: #8B5A2B;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rule-item {
+  color: #555;
+  line-height: 1.5;
+}
+
+.mode-text {
+  font-weight: 600;
+  color: #8B5A2B;
+}
+
+/* 模态框样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border: 4px solid #8B5A2B;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: #8B5A2B;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #8B5A2B;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-btn.pvp {
+  background: #8B5A2B;
+  color: white;
+}
+
+.modal-btn.pve {
+  background: #DEB887;
+  color: #8B5A2B;
+}
+
+.modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 90, 43, 0.3);
+}
+
+.modal-tip {
+  margin-top: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* 胜利模态框 */
+.win-modal {
+  max-width: 400px;
+}
+
+.win-title {
+  font-size: 2rem;
+  color: #8B5A2B;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.win-message {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.win-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* 图标样式 */
+.fa {
+  font-family: "FontAwesome" !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .game-area {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .controls-section {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .game-title {
+    font-size: 2rem;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+  }
+  
+  .modal-buttons,
+  .win-buttons {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,37 @@
+<view class="container {{themeClass}}">
+  <view class="card">
+    <image class="logo" src="/images/logo.jpg" mode="aspectFit"></image>
+    <text class="app-name">星芒集盒</text>
+    <text class="welcome-text">欢迎使用</text>
+    
+    <view class="login-tips">
+      <text>登录后可使用更多功能</text>
+    </view>
+    
+    <view class="agreement-section">
+      <view class="checkbox-wrapper" bindtap="toggleAgreement">
+        <view class="custom-checkbox {{agreedToPrivacy ? 'checked' : ''}}">
+          <text wx:if="{{agreedToPrivacy}}" class="check-icon">✓</text>
+        </view>
+      </view>
+      <text class="agreement-text">我已阅读并同意</text>
+      <text class="agreement-link" bindtap="openUserAgreement">《用户协议》</text>
+      <text class="agreement-text">和</text>
+      <text class="agreement-link" bindtap="openPrivacyPolicy">《隐私政策》</text>
+    </view>
+    
+    <button 
+      class="login-btn {{!agreedToPrivacy ? 'disabled' : ''}}" 
+      open-type="getUserInfo"
+      bindgetuserinfo="onGetUserInfo"
+      loading="{{loading}}"
+      disabled="{{!agreedToPrivacy}}">
+      授权微信登录
+    </button>
+  </view>
+  
+  <view class="privacy-notice">
+    <view class="notice-icon">🔒</view>
+    <view class="notice-text">温馨提示：该小程序所有应用都允许在设备本地处理数据，不会上传至服务器，请放心使用</view>
+  </view>
+</view>

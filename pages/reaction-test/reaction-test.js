@@ -76,5 +76,11 @@ Page({
       title: '反应力测试 - 星芒集盒',
       path: '/pages/reaction-test/reaction-test'
     }
+  },
+
+  onShareTimeline: function() {
+    return {
+      title: '反应力测试 - 星芒集盒'
+    }
   }
 })

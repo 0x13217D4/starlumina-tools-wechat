@@ -1,0 +1,68 @@
+<view class="container {{themeClass}}">
+  <view class="game-header">
+    <text class="game-title">五子棋</text>
+    <view class="game-timer" wx:if="{{gameStarted}}">
+      对局时长：{{gameTimeFormatted}}
+    </view>
+  </view>
+
+  <view class="game-area">
+    <view class="board-section">
+      <view class="game-board-container">
+        <canvas 
+          id="gameCanvas"
+          canvas-id="gameCanvas" 
+          class="game-canvas"
+          style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"
+          bindtap="onCanvasTap"
+        ></canvas>
+      </view>
+      
+    </view>
+    
+    <view class="controls-section">
+      <view class="control-buttons">
+        <button class="btn primary" bindtap="restartGame">
+          重新开始
+        </button>
+        <button class="btn" bindtap="undoMove" disabled="{{!gameActive || moveHistory.length === 0}}">
+          悔棋
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 先手/后手选择模态框 -->
+<view class="modal-overlay" wx:if="{{showFirstPlayerModal}}">
+  <view class="modal-content">
+    <view class="modal-title">选择先手</view>
+    <view class="modal-buttons">
+      <button class="modal-btn pvp" bindtap="selectFirst">
+        我先手（黑棋）
+      </button>
+      <button class="modal-btn pve" bindtap="selectSecond">
+        我后手（白棋）
+      </button>
+    </view>
+    <view class="modal-tip">
+      先手执黑棋，后手执白棋
+    </view>
+    <view class="modal-tip">
+      黑棋先行，白棋后手
+    </view>
+  </view>
+</view>
+
+<!-- 胜利模态框 -->
+<view class="modal-overlay" wx:if="{{showWinModal}}">
+  <view class="modal-content win-modal">
+    <view class="win-title">游戏结束!</view>
+    <view class="win-message">{{winMessage}}</view>
+    <view class="win-buttons">
+      <button class="btn primary" bindtap="startNewGame">
+        开始新游戏
+      </button>
+    </view>
+  </view>
+</view>

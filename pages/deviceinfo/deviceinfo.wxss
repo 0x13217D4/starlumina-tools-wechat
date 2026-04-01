@@ -2,31 +2,48 @@
 
 /* 页面容器 */
 .container {
-  padding: 20rpx;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
+  gap: 12px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.container.dark {
+  background-color: #1a1a1a;
 }
 
 /* 信息卡片样式 */
 .info-card {
   background-color: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-  width: calc(100% - 40rpx);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
+}
+
+.container.dark .info-card {
+  background-color: #2d2d2d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* 卡片标题样式 */
 .info-title {
-  font-size: 32rpx;
+  font-size: 16px;
   color: #333;
   font-weight: bold;
-  margin-bottom: 24rpx;
+  margin-bottom: 12px;
   text-align: center;
   position: relative;
-  padding-bottom: 16rpx;
+  padding-bottom: 8px;
+}
+
+.container.dark .info-title {
+  color: #e0e0e0;
 }
 
 .info-title::after {
@@ -35,15 +52,19 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80rpx;
-  height: 4rpx;
+  width: 40px;
+  height: 2px;
   background-color: #07C160;
+}
+
+.container.dark .info-title::after {
+  background-color: #09e765;
 }
 
 /* 信息项容器 */
 .info-item {
   display: flex;
-  margin-bottom: 20rpx;
+  margin-bottom: 10px;
   align-items: center;
 }
 
@@ -57,20 +78,42 @@
   text-decoration: underline;
 }
 
+.container.dark .info-item.clickable .info-value {
+  color: #09e765;
+}
+
 .info-item.clickable:active {
   opacity: 0.7;
 }
 
 /* 信息标签样式 */
 .info-label {
-  font-size: 28rpx;
+  font-size: 14px;
   color: #666;
-  width: 200rpx;
+  width: 100px;
+}
+
+.container.dark .info-label {
+  color: #aaa;
 }
 
 /* 信息值样式 */
 .info-value {
-  font-size: 28rpx;
+  font-size: 14px;
   color: #333;
   flex: 1;
+}
+
+.container.dark .info-value {
+  color: #e0e0e0;
+}
+
+/* 加载状态样式 */
+.info-value.loading {
+  color: #999;
+  font-style: italic;
+}
+
+.container.dark .info-value.loading {
+  color: #777;
 }

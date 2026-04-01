@@ -4,6 +4,10 @@
   background-color: #f7f7f7;
   min-height: 100vh;
 }
+
+.container.dark {
+  background-color: #1a1a1a;
+}
 .form-card {
   background-color: #fff;
   border-radius: 16rpx;
@@ -15,11 +19,21 @@
   padding: 0 30rpx;
 }
 
+.container.dark .form-card {
+  background-color: #2d2d2d;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.3);
+  border: 1rpx solid #444;
+}
+
 .form-item {
   display: flex;
   align-items: center;
   padding: 30rpx 0;
   border-bottom: 1rpx solid #f0f0f0;
+}
+
+.container.dark .form-item {
+  border-bottom: 1rpx solid #444;
 }
 
 .form-item:last-child {
@@ -30,6 +44,10 @@
   width: 160rpx;
   font-size: 32rpx;
   color: #333;
+}
+
+.container.dark .label {
+  color: #e0e0e0;
 }
 
 .avatar-btn {
@@ -52,10 +70,19 @@
   padding: 20rpx 0;
 }
 
+.container.dark .input {
+  color: #e0e0e0;
+  background-color: transparent;
+}
+
 .picker {
   flex: 1;
   font-size: 32rpx;
   color: #333;
+}
+
+.container.dark .picker {
+  color: #e0e0e0;
 }
 
 .save-btn-container {
@@ -72,6 +99,10 @@
   padding: 20rpx;
 }
 
+.container.dark .privacy-notice {
+  background-color: #3a3a3a;
+}
+
 .notice-icon {
   margin-right: 10rpx;
   font-size: 28rpx;
@@ -80,6 +111,10 @@
 .notice-text {
   font-size: 26rpx;
   color: #666;
+}
+
+.container.dark .notice-text {
+  color: #aaa;
 }
 
 .save-btn {
@@ -93,4 +128,9 @@
   font-size: 32rpx;
   border-radius: 8rpx;
   padding: 0;
+}
+
+.container.dark .save-btn {
+  background-color: #09e765;
+  color: #000;
 }

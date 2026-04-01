@@ -1,43 +1,36 @@
 {
-  "compileType": "miniprogram",
-  "libVersion": "3.9.2",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
+  "testRoot": "minitest/",
   "setting": {
-    "coverView": true,
-    "es6": true,
-    "postcss": true,
-    "minified": true,
     "enhance": true,
-    "showShadowRootInWxmlPanel": true,
+    "es6": true,
+    "postcss": false,
+    "compileWorklet": false,
+    "minified": true,
+    "uglifyFileName": true,
+    "uploadWithSourceMap": false,
+    "packNpmManually": false,
     "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": true,
+    "disableSWC": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    },
-    "compileWorklet": false,
-    "uglifyFileName": true,
-    "uploadWithSourceMap": true,
-    "packNpmManually": true,
-    "minifyWXSS": true,
-    "minifyWXML": true,
-    "localPlugins": false,
-    "condition": true,
-    "swc": true,
-    "disableSWC": false,
-    "disableUseStrict": false,
-    "useCompilerPlugins": false
-  },
-  "condition": {},
-  "editorSetting": {
-    "tabIndent": "auto",
-    "tabSize": 2
+    }
   },
   "appid": "wxaea3370f46279e80",
-  "simulatorPluginLibVersion": {
-    "wxext94b1b46f6603361": "3.9.2"
-  }
+  "libVersion": "3.14.2",
+  "compileType": "miniprogram",
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
 }

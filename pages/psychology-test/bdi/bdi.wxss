@@ -3,6 +3,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* 深色模式 */
+.container.dark {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
 }
 
 .progress {
@@ -11,11 +19,20 @@
   color: #666;
 }
 
+.container.dark .progress {
+  color: #aaa;
+}
+
 .question {
   margin-bottom: 30px;
   font-size: 18px;
   text-align: center;
   font-weight: bold;
+  color: #333;
+}
+
+.container.dark .question {
+  color: #e0e0e0;
 }
 
 .options button {
@@ -25,10 +42,20 @@
   background-color: #f5f5f5;
   border: none;
   border-radius: 5px;
+  color: #333;
+}
+
+.container.dark .options button {
+  background-color: #3a3a3a;
+  color: #e0e0e0;
 }
 
 .options button:active {
   background-color: #e5e5e5;
+}
+
+.container.dark .options button:active {
+  background-color: #4a4a4a;
 }
 
 .result {
@@ -38,6 +65,10 @@
   border-radius: 10px;
   margin-top: 20px;
   width: 100%;
+}
+
+.container.dark .result {
+  background-color: #2d2d2d;
 }
 
 .result-header {
@@ -58,6 +89,10 @@
   display: block;
 }
 
+.container.dark .total-score {
+  color: #e0e0e0;
+}
+
 .description {
   margin: 25px 0;
   padding: 15px;
@@ -66,6 +101,12 @@
   font-size: 15px;
   line-height: 1.6;
   text-align: left;
+  color: #333;
+}
+
+.container.dark .description {
+  background-color: #2a3a4a;
+  color: #e0e0e0;
 }
 
 .restart-btn {
@@ -76,6 +117,11 @@
   border-radius: 5px;
   padding: 12px 25px;
   font-size: 16px;
+}
+
+.container.dark .restart-btn {
+  background-color: #1aad19;
+  color: white;
 }
 
 .restart-btn:active {

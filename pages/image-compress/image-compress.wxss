@@ -5,6 +5,11 @@
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.container.dark {
+  background-color: #1a1a1a;
 }
 
 .header {
@@ -20,9 +25,17 @@
   margin-bottom: 8px;
 }
 
+.container.dark .title {
+  color: #e0e0e0;
+}
+
 .subtitle {
   font-size: 14px;
   color: #666;
+}
+
+.container.dark .subtitle {
+  color: #aaa;
 }
 
 .upload-area {
@@ -39,11 +52,20 @@
   overflow: hidden;
 }
 
+.container.dark .upload-area {
+  background-color: #2d2d2d;
+  border-color: #09e765;
+}
+
 .upload-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #999;
+}
+
+.container.dark .upload-hint {
+  color: #aaa;
 }
 
 .preview-image {
@@ -54,11 +76,19 @@
   object-fit: contain;
 }
 
+.container.dark .preview-image {
+  background-color: #2d2d2d;
+}
+
 .info-section {
   background-color: #f5f5f5;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
+}
+
+.container.dark .info-section {
+  background-color: #3a3a3a;
 }
 
 .info-item {
@@ -75,9 +105,17 @@
   color: #666;
 }
 
+.container.dark .info-label {
+  color: #ccc;
+}
+
 .info-value {
   color: #333;
   font-weight: 500;
+}
+
+.container.dark .info-value {
+  color: #e0e0e0;
 }
 
 .controls {
@@ -94,11 +132,21 @@
   color: #333;
 }
 
-.checkbox-label, .radio-label {
+.container.dark .control-label {
+  color: #e0e0e0;
+}
+
+.checkbox-label, .radio-label, .switch-label {
   display: flex;
   align-items: center;
   color: #333;
   margin-right: 20px;
+}
+
+.container.dark .checkbox-label,
+.container.dark .radio-label,
+.container.dark .switch-label {
+  color: #e0e0e0;
 }
 
 .radio-group {
@@ -120,6 +168,12 @@ progress {
   background-color: #4a90e2;
   border-radius: 8px;
   margin-top: 10px;
+  color: white;
+}
+
+.container.dark .action-btn {
+  background-color: #09e765;
+  color: #000;
 }
 
 .result-section {
@@ -127,4 +181,9 @@ progress {
   padding: 15px;
   border-radius: 8px;
   border: 1px solid #4a90e2;
+}
+
+.container.dark .result-section {
+  background-color: #2a3a4a;
+  border-color: #09e765;
 }

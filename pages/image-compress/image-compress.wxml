@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="header">
     <text class="title">图片压缩工具</text>
     <text class="subtitle">轻松压缩图片，节省存储空间</text>
@@ -48,11 +48,9 @@
     </view>
 
     <view class="control-group">
-      <checkbox-group bindchange="toggleResize">
-        <label class="checkbox-label">
-          <checkbox value="{{true}}" color="#4a90e2"/> 限制最大宽度(1920px)
-        </label>
-      </checkbox-group>
+      <label class="switch-label">
+        <switch checked="{{showResize}}" bindchange="toggleResize" color="#4a90e2"/> 限制最大宽度(1920px)
+      </label>
     </view>
 
     <view class="progress-container" wx:if="{{isCompressing}}">

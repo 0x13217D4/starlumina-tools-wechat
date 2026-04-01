@@ -1,25 +1,28 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="input-section">
     <input 
       type="text" 
-      placeholder="{{barcodeType === 'ean13' ? '请输入13位数字' : '请输入条码内容'}}" 
+      placeholder="{{barcodeType === 'ean13' ? '请输入12位数字' : '请输入条码内容'}}" 
       bindinput="onInputChange"
       value="{{barcodeText}}"
-      maxlength="{{barcodeType === 'ean13' ? 13 : -1}}"
+      maxlength="{{barcodeType === 'ean13' ? 12 : -1}}"
     />
     <view class="input-hint" wx:if="{{barcodeType === 'ean13'}}">
-      提示：EAN13格式需要13位数字
+      提示：EAN13格式输入12位数字，校验码自动生成
     </view>
     <view class="input-hint" wx:if="{{barcodeType === 'code39'}}">
       提示：CODE39支持字母、数字和特殊字符(-.$/+%)
     </view>
-    <picker 
-      mode="selector" 
-      range="{{barcodeTypes}}" 
-      bindchange="onTypeChange"
-    >
-      <view>当前条码类型: {{barcodeType}}</view>
-    </picker>
+    <view class="type-selector">
+      <text>条码类型:</text>
+      <picker 
+        mode="selector" 
+        range="{{barcodeTypes}}" 
+        bindchange="onTypeChange"
+      >
+        <view class="picker-display">{{barcodeType}}</view>
+      </picker>
+    </view>
     <button 
       bindtap="generateBarcode" 
       class="{{isLoading ? 'loading' : ''}}"

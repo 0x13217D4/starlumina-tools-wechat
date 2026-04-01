@@ -7,25 +7,36 @@ class DeviceUtils {
   /**
    * 分类设备信息
    * @param {Object} data 原始设备数据
+   * @param {boolean} isShared 是否为分享模式
    * @returns {Object} 分类后的设备信息
    */
-  static categorizeDeviceInfo(data) {
+  static categorizeDeviceInfo(data, isShared = false) {
+    // 分享模式下的基本信息字段（不包含屏幕宽高）
+    const sharedBasicFields = [
+      'brand', 'model', 'modelCode', 'system', 'version', 
+      'platform', 'SDKVersion', 'PCKernelVersion', 'cpuType', 'memorySize', 
+      'ipv4', 'ipv6', 'networkType'
+    ];
+    
+    // 普通模式下的基本信息字段
+    const normalBasicFields = [
+      'brand', 'model', 'modelCode', 'system', 'version', 
+      'platform', 'SDKVersion', 'PCKernelVersion', 'cpuType', 'memorySize', 
+      'ipv4', 'ipv6', 'networkType'
+    ];
+
     return {
-      basicInfo: this._filterData(data, [
-        'brand', 'model', 'system', 'version', 
-        'platform', 'SDKVersion', 'ipAddress', 'networkType'
-      ]),
-      screenInfo: this._filterData(data, [
+      basicInfo: this._filterData(data, isShared ? sharedBasicFields : normalBasicFields, isShared),
+      // 分享模式下不返回屏幕信息
+      screenInfo: isShared ? {} : this._filterData(data, [
         'pixelRatio', 'screenWidth', 'screenHeight',
         'windowWidth', 'windowHeight', 'statusBarHeight'
       ]),
-      authInfo: this._filterData(data, [
-        'albumAuthorized', 'cameraAuthorized',
-        'locationAuthorized', 'microphoneAuthorized'
-      ]),
-      performanceInfo: this._filterData(data, [
+      // 分享模式下不返回性能信息
+      performanceInfo: isShared ? {} : this._filterData(data, [
         'benchmarkLevel', 'modelLevel'
       ]),
+      // 分享模式下也需要电量信息
       batteryInfo: this._filterData(data, [
         'level', 'isCharging', 'isLowPowerModeEnabled'
       ])
@@ -36,12 +47,15 @@ class DeviceUtils {
    * 从完整数据中筛选指定字段
    * @private
    */
-  static _filterData(data, keys) {
+  static _filterData(data, keys, isShared = false) {
     const result = {};
     keys.forEach(key => {
-      if (data[key] !== undefined) {
+      if (data[key] !== undefined && data[key] !== null && data[key] !== '') {
         result[key] = data[key];
       }
+      // PC内核版本仅在PC端显示，非PC端不显示该字段
+      // CPU型号仅在Android端显示，其他平台不显示该字段
+      // 分享模式下，空值的PC内核版本和CPU型号不显示
     });
     return result;
   }
@@ -55,11 +69,16 @@ class DeviceUtils {
       // 设备基本信息
       'brand': '设备品牌',
       'model': '设备型号',
+      'modelCode': '型号代码',
       'system': '操作系统',
       'version': '微信版本',
       'platform': '运行平台',
       'SDKVersion': '基础库版本',
-      'ipAddress': 'IP地址',
+      'PCKernelVersion': 'PC内核版本',
+      'cpuType': 'CPU型号',
+      'memorySize': '内存大小',
+      'ipv4': 'IPv4地址',
+      'ipv6': 'IPv6地址',
       'networkType': '网络状态',
       // 屏幕信息
       'pixelRatio': '设备像素比',
@@ -68,12 +87,6 @@ class DeviceUtils {
       'windowWidth': '窗口宽度(px)',
       'windowHeight': '窗口高度(px)',
       'statusBarHeight': '状态栏高度',
-      
-      // 权限状态
-      'albumAuthorized': '相册权限',
-      'cameraAuthorized': '相机权限',
-      'locationAuthorized': '位置权限',
-      'microphoneAuthorized': '麦克风权限',
       
       // 性能信息
       'benchmarkLevel': '设备性能等级',
@@ -146,6 +159,40 @@ class DeviceUtils {
       default:
         return `未知档位(${modelLevel})`;
     }
+  }
+
+  /**
+   * 格式化内存大小显示
+   * @param {number} memorySize 内存大小（单位：MB）
+   * @returns {string} 格式化后的显示文本
+   */
+  static formatMemorySize(memorySize) {
+    if (!memorySize) {
+      return '未知';
+    }
+    const gb = memorySize / 1024;
+    if (gb >= 1) {
+      return `${gb.toFixed(1)} GB`;
+    }
+    return `${memorySize} MB`;
+  }
+
+  /**
+   * 格式化平台显示
+   * @param {string} platform 平台代码
+   * @returns {string} 格式化后的显示文本
+   */
+  static formatPlatform(platform) {
+    const platformMap = {
+      'ios': 'iOS',
+      'android': 'Android',
+      'ohos': 'HarmonyOS',
+      'ohos_pc': '鸿蒙PC',
+      'windows': 'Windows',
+      'mac': 'macOS',
+      'devtools': '微信开发者工具'
+    };
+    return platformMap[platform] || platform || '未知';
   }
 
 }

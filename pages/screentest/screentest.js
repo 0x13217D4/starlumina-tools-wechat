@@ -1,8 +1,7 @@
 Page({
   onShareTimeline: function() {
     return {
-      title: '星芒集盒 - 屏幕测试',
-      imageUrl: '/images/tools.png'
+      title: '星芒集盒 - 屏幕测试'
     }
   },
   data: {
@@ -37,8 +36,7 @@ Page({
   onShareAppMessage: function() {
     return {
       title: '屏幕测试工具',
-      path: '/pages/screentest/screentest',
-      imageUrl: '/images/logo.jpg'
+      path: '/pages/screentest/screentest'
     }
   }
 })

@@ -1,0 +1,64 @@
+<!--speedtest.wxml-->
+<view class="container {{themeClass}}">
+  <!-- 加载动画 -->
+  <view wx:if="{{loading}}" class="loading">
+    <view class="bounce1"></view>
+    <view class="bounce2"></view>
+    <view class="bounce3"></view>
+  </view>
+
+  <!-- 测速界面 -->
+  <view wx:else class="speedtest">
+    <!-- 仪表盘 - 使用新版Canvas API -->
+    <canvas type="2d" id="gaugeCanvas" class="gauge"></canvas>
+
+    <!-- 实时速度 -->
+    <view class="live-speed">
+      <text class="speed-value">{{liveSpeed}}</text>
+      <text class="speed-unit">Mbps</text>
+    </view>
+
+    <!-- 状态信息 -->
+    <view class="status">{{statusText}}</view>
+
+    <!-- 测试结果 -->
+    <view class="results">
+      <view class="result-item">
+        <text class="label">Ping</text>
+        <text class="value">{{pingResult}} ms</text>
+      </view>
+      <view class="result-item">
+        <text class="label">抖动</text>
+        <text class="value">{{jitterResult}} ms</text>
+      </view>
+      <view class="result-item">
+        <text class="label">下载</text>
+        <text class="value">{{downloadResult}} Mbps</text>
+      </view>
+      <view class="result-item">
+        <text class="label">上传</text>
+        <text class="value">{{uploadResult}} Mbps</text>
+      </view>
+    </view>
+
+    <!-- IP信息 -->
+    <view class="ip-info">
+      <view class="ip-item">
+        <text class="ip-label">客户端IP</text>
+        <text class="ip-value">{{clientIp}}</text>
+      </view>
+      <view class="ip-item">
+        <text class="ip-label">服务器IP</text>
+        <text class="ip-value">{{serverIp}}</text>
+      </view>
+    </view>
+
+    <!-- 开始按钮 -->
+    <button wx:if="{{!testing}}" bindtap="startTest" class="start-btn">开始测速</button>
+
+    <!-- 进度条 -->
+    <view wx:if="{{testing}}" class="progress">
+      <view class="progress-bar" style="width: {{progress}}%"></view>
+    </view>
+  </view>
+</view>

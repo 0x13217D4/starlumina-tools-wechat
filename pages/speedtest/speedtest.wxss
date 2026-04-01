@@ -1,0 +1,195 @@
+/* speedtest.wxss */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40rpx 20rpx;
+  box-sizing: border-box;
+}
+
+/* 加载动画样式 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 300rpx;
+}
+
+.bounce1, .bounce2, .bounce3 {
+  width: 30rpx;
+  height: 30rpx;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 10rpx;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.bounce1 {
+  animation-delay: -0.32s;
+}
+
+.bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* 测速界面样式 */
+.speedtest {
+  padding: 20rpx 0;
+}
+
+/* 仪表盘Canvas样式 */
+.gauge {
+  width: 600rpx;
+  height: 600rpx;
+  margin: 0 auto 40rpx;
+  display: block;
+}
+
+/* 实时速度显示样式 */
+.live-speed {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.speed-value {
+  font-size: 80rpx;
+  color: #fff;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.speed-unit {
+  font-size: 32rpx;
+  color: #fff;
+  margin-left: 10rpx;
+  display: inline-block;
+}
+
+/* 状态文字样式 */
+.status {
+  text-align: center;
+  font-size: 28rpx;
+  color: #fff;
+  margin-bottom: 40rpx;
+  opacity: 0.9;
+}
+
+/* 测试结果卡片样式 */
+.results {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 40rpx;
+  backdrop-filter: blur(10rpx);
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.value {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* IP信息卡片样式 */
+.ip-info {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 40rpx;
+  backdrop-filter: blur(10rpx);
+}
+
+.ip-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.ip-item:last-child {
+  border-bottom: none;
+}
+
+.ip-label {
+  font-size: 26rpx;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.ip-value {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: 500;
+  max-width: 60%;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* 开始按钮样式 */
+.start-btn {
+  width: 100%;
+  height: 90rpx;
+  background: linear-gradient(90deg, #00BFFF 0%, #1E90FF 100%);
+  color: #fff;
+  font-size: 36rpx;
+  border-radius: 45rpx;
+  border: none;
+  box-shadow: 0 10rpx 30rpx rgba(0, 191, 255, 0.3);
+  transition: all 0.3s;
+}
+
+.start-btn::after {
+  border: none;
+}
+
+.start-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 5rpx 15rpx rgba(0, 191, 255, 0.3);
+}
+
+.start-btn.disabled {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+/* 进度条样式 */
+.progress {
+  height: 10rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5rpx;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00BFFF 0%, #1E90FF 100%);
+  border-radius: 5rpx;
+  transition: width 0.3s;
+}
